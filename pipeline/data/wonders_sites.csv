@@ -1,0 +1,35 @@
+id,name,short,kind,rule,okrug,lon,lat,value,unit,year,listed_as,note
+np-djerdap,Nacionalni park Đerdap,Đerdap,natural,national_park,,22.3000,44.6000,637.86,km2,1974,Nacionalni park,"Đerdapska klisura (Gvozdena vrata) na Dunavu, od Golupca do Kladova; sedište u Donjem Milanovcu"
+np-fruska-gora,Nacionalni park Fruška gora,Fruška gora,natural,national_park,,19.66667,45.16667,266.72,km2,1960,Nacionalni park,Prvi nacionalni park u Srbiji (1960); ostrvska planina u Vojvodini
+np-tara,Nacionalni park Tara,Tara,natural,national_park,,19.46583,43.84778,249.92,km2,1981,Nacionalni park,Planina Tara na Drini; stanište Pančićeve omorike
+np-sar-planina,Nacionalni park Šar-planina,Šar-planina,natural,national_park,,20.92464,42.20225,228.05,km2,1986,Nacionalni park,"Proglašen po zakonu Republike Srbije (22.805 ha na teritoriji opština Štrpce, Prizren, Suva Reka i Kačanik); na Kosovu i Metohiji"
+np-kopaonik,Nacionalni park Kopaonik,Kopaonik,natural,national_park,,20.83333,43.31667,118.10,km2,1981,Nacionalni park,Najveći planinski masiv u centralnoj Srbiji; najviši vrh Pančića vrh (2.017 m)
+pp-golija-studenica,Park prirode Golija-Studenica,Golija,natural,park_unit,,20.27667,43.33778,750,km2,2001,Park prirode,"Najveća zaštićena površina u Srbiji (okvirno 750 km²); rezervat biosfere (UNESCO MAB, 2001)"
+pp-deliblatska-pescara,Park prirode Deliblatska peščara,Deliblatska peščara,natural,park_unit,,21.0925,44.88361,,km2,,Park prirode,Najveći peščarski kompleks u Evropi (Banat); površina po aktu o proglašenju nije upisana u izvoru
+srp-uvac,Specijalni rezervat prirode Uvac,Uvac,natural,park_unit,,19.93333,43.40000,75.43,km2,1971,Specijalni rezervat prirode,Kanjon reke Uvca sa meandrima; stanište beloglavog supa
+pp-djavolja-varos,Đavolja varoš,Đavolja varoš,natural,park_unit,,21.4025,42.99306,0.67,km2,1959,Znamenito prirodno mesto,"Zemljane kule (erozione formacije) na Radanju; zaštita od 1959, sa Đavoljom vodom i Crvenim potokom"
+uni-beograd,Univerzitet u Beogradu,Beograd,university,research_university,RS110,20.4575,44.81861,89299,studenata,2024/25,,Državni univerzitet; osnovan 1808.
+uni-novi-sad,Univerzitet u Novom Sadu,Novi Sad,university,research_university,RS123,19.85407,45.24763,42552,studenata,2024/25,,Državni univerzitet; osnovan 1960.
+uni-nis,Univerzitet u Nišu,Niš,university,research_university,RS225,21.89333,43.32306,22756,studenata,2024/25,,Državni univerzitet; osnovan 1965.
+uni-kragujevac,Univerzitet u Kragujevcu,Kragujevac,university,research_university,RS218,20.92197,44.02342,13996,studenata,2024/25,,Državni univerzitet; osnovan 1976.
+whs-stari-ras-sopocani,Stari Ras i Sopoćani,Stari Ras i Sopoćani,landmark,unesco_site,,20.41556,43.12833,,,1979,Stari Ras and Sopoćani,Prestonica srednjovekovne Raške i manastir Sopoćani (okolina Novog Pazara)
+whs-studenica,Manastir Studenica,Studenica,landmark,unesco_site,,20.53667,43.48611,,,1986,Studenica Monastery,Zadužbina Stefana Nemanje; najveći i najbogatiji manastir Srpske pravoslavne crkve
+whs-gamzigrad,Gamzigrad – Feliksova Romulijana,Gamzigrad,landmark,unesco_site,,22.18500,43.89917,,,2007,"Gamzigrad-Romuliana, Palace of Galerius",Poznorimska palata cara Galerija (Felix Romuliana) kod Zaječara
+whs-decani,Manastir Visoki Dečani,Visoki Dečani,landmark,unesco_site,,20.26611,42.54694,,,2004,Medieval Monuments in Kosovo,Najveća crkva srednjovekovne Srbije (14. vek); na Kosovu i Metohiji
+whs-patrijarsija-pec,Patrijaršija u Peći,Patrijaršija u Peći,landmark,unesco_site,,20.26600,42.66100,,,2006,Medieval Monuments in Kosovo,"Sedište Srpske pravoslavne crkve (13–14. vek), kompleks crkava u Peći; na Kosovu i Metohiji"
+whs-bogorodica-ljevisa,Bogorodica Ljeviška,Bogorodica Ljeviška,landmark,unesco_site,,20.73583,42.21139,,,2006,Medieval Monuments in Kosovo,Crkva Bogorodice Ljeviške u Prizrenu (14. vek); na Kosovu i Metohiji
+whs-gracanica,Manastir Gračanica,Gračanica,landmark,unesco_site,,21.19333,42.59833,,,2006,Medieval Monuments in Kosovo,Zadužbina kralja Milutina (14. vek) kod Prištine; na Kosovu i Metohiji
+whs-steci,Stećci – Mramorje u Perućcu,Stećci,landmark,unesco_site,,19.43028,43.95778,,,2016,Stećci Medieval Tombstone Graveyards,"Srednjovekovni nadgrobni spomenici (stećci), zajednička nominacija sa Bosnom i Hercegovinom, Crnom Gorom i Hrvatskom; u Srbiji 3 lokaliteta (Mramorje Perućac, Mramorje Rastište, Grčko groblje Hrta) i oko 2.100 stećaka"
+lm-kalemegdan,Beogradska tvrđava (Kalemegdan),Kalemegdan,landmark,landmark,RS110,20.45028,44.82333,,,,,Tvrđava na ušću Save u Dunav; spomenik kulture od izuzetnog značaja
+lm-petrovaradin,Petrovaradinska tvrđava,Petrovaradin,landmark,landmark,,19.8625,45.2525,,,,,"Austrijska tvrđava (17–18. vek) u Novom Sadu, poznata kao Gibraltar na Dunavu"
+lm-lepenski-vir,Lepenski vir,Lepenski vir,landmark,landmark,,22.02417,44.56111,,,,,Mezolitsko i neolitsko naselje na Dunavu (Đerdap); muzej od 2011.
+lm-vinca,Vinča – Belo brdo,Vinča,landmark,landmark,RS110,20.62306,44.76194,,,,,Eneolitsko naselje vinčanske kulture (5. milenijum p. n. e.) kod Beograda
+lm-viminacijum,Viminacijum,Viminacijum,landmark,landmark,,21.22561,44.73698,,,,,Rimski grad i legijski logor kod Kostolca; arheološki park
+lm-smederevo,Smederevska tvrđava,Smederevo,landmark,landmark,,20.92778,44.66944,,,,,Poslednja prestonica Despotovine (15. vek); najveća nizinska tvrđava u Evropi
+lm-golubac,Golubačka tvrđava,Golubac,landmark,landmark,RS222,21.67848,44.66119,,,,,Srednjovekovna tvrđava na Dunavu kod ulaska u Đerdapsku klisuru
+lm-bac,Tvrđava Bač,Bač,landmark,landmark,RS123,19.2217,45.3931,,,,,"Tvrđava u Baču (14–16. vek), središte srednjovekovne Bačke županije"
+lm-manasija,Manastir Manasija (Resava),Manasija,landmark,landmark,,21.46944,44.10056,,,,,Zadužbina despota Stefana Lazarevića (15. vek) kod Despotovca
+lm-zica,Manastir Žiča,Žiča,landmark,landmark,,20.64574,43.6963,,,,,Sedište Srpske pravoslavne crkve u 13. veku; krunidbena crkva kraljeva iz dinastije Nemanjić
+lm-mileseva,Manastir Mileševa,Mileševa,landmark,landmark,,19.6614,43.39,,,,,Zadužbina kralja Vladislava (13. vek) kod Prijepolja; freska Beli anđeo
+lm-cele-kula,Ćele kula,Ćele kula,landmark,landmark,RS225,21.9238,43.3122,,,,,"Kula od lobanja u Nišu (1809), iz vremena Prvog srpskog ustanka"
+lm-djurdjevi-stupovi-ras,Đurđevi stupovi (Ras),Đurđevi stupovi,landmark,landmark,,20.49667,43.16556,,,,,Zadužbina Stefana Nemanje (12. vek) kod Novog Pazara; na UNESCO-ovoj probnoj listi

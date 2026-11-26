@@ -1,0 +1,5 @@
+# Pages preview
+
+Static, dependency-free geographic preview deployed by `.github/workflows/pages.yml`. Serve locally with `python3 -m http.server --directory pages 8765`. The boundary is extracted from Natural Earth 1:10m Admin 0 Countries v5.1.1 (public domain), downloaded from https://naturalearth.s3.amazonaws.com/10m_cultural/ne_10m_admin_0_countries.zip. Its Serbia and Kosovo geometries are displayed together. The grid is illustrative, not the project's planned 5 km data grid. City positions are approximate. This preview is separate from the inherited `web/` app until the Serbia pipeline is ready.
+
+The separate `full-app-pages.yml` workflow is the deployment path for the finished `web/` app. It is manually triggered on `main` and requires the Serbian data assets, the pipeline checker, and the browser smoke test to pass before publishing. It stages only the required Serbian data files, so inherited optional U.S. datasets are not deployed. The preview workflow is also manual: the existing preview stays online until another deployment, and a preview run will replace the full app if triggered later.

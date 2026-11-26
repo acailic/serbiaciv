@@ -1,0 +1,59 @@
+name: Deploy completed Serbian app to GitHub Pages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pipeline dependencies
+        run: |
+          python -m pip install uv
+          uv sync --frozen
+      - name: Verify and stage Serbian assets
+        run: |
+          uv run python scripts/stage_serbia_pages.py
+          uv run python -m pipeline check
+      - name: Require browser smoke test
+        run: test -f tests/browser/smoke.mjs
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser test dependencies
+        run: |
+          npm install --no-save --no-package-lock playwright
+          npx playwright install --with-deps chromium
+      - name: Smoke test the full app
+        # GitHub Pages serves the app under /serbiaciv/, not from the root of the site: serve it the same way.
+        run: |
+          mkdir -p /tmp/site && cp -r dist/pages-app /tmp/site/serbiaciv
+          python -m http.server 8765 --directory /tmp/site > /tmp/serbiaciv-server.log 2>&1 &
+          for i in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:8765/serbiaciv/ > /dev/null; then break; fi
+            sleep 1
+          done
+          node tests/browser/smoke.mjs http://127.0.0.1:8765/serbiaciv/
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/pages-app
+      - id: deployment
+        uses: actions/deploy-pages@v4

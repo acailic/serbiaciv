@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="sr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>serbiaciv — Srbija kao strateška igra</title>
+  <meta name="description" content="Stvarna Republika Srbija nacrtana kao mapa strateške igre 4X: teren u heksima, gradovi sa prinosima, sočiva i resursi, sve iz javnih podataka.">
+  <meta name="theme-color" content="#131e2a">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='31' fill='%23120d06'/%3E%3Ccircle cx='32' cy='32' r='29' fill='%23c9a45c'/%3E%3Ccircle cx='32' cy='32' r='24' fill='%232a4d8f'/%3E%3Cpath fill='%23f8f0d8' d='M32 14l4.9 11.3 12.2 1.1-9.3 8.1 2.8 12-10.6-6.4-10.6 6.4 2.8-12-9.3-8.1 12.2-1.1z'/%3E%3C/svg%3E">
+  <!-- Social cards. Crawlers need absolute URLs: if you host your own copy, change https://acailic.github.io/serbiaciv/ to its address
+       (og:url, og:image, twitter:image, canonical). og-image.png is a 1200x630 render of the home view. -->
+  <link rel="canonical" href="https://acailic.github.io/serbiaciv/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="serbiaciv">
+  <meta property="og:title" content="Srbija kao mapa strateške igre">
+  <meta property="og:description" content="Stvarna privreda Srbije nacrtana kao mapa strateške igre 4X: teren u heksima, gradovi sa prinosima, sočiva i resursi, sve iz javnih podataka (RZS, Eurostat, Copernicus, ESA WorldCover, OpenStreetMap).">
+  <meta property="og:url" content="https://acailic.github.io/serbiaciv/">
+  <meta property="og:image" content="https://acailic.github.io/serbiaciv/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Heksagonalna mapa Republike Srbije sa barjacima gradova, u stilu strateške igre">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Srbija kao mapa strateške igre">
+  <meta name="twitter:description" content="Stvarna privreda Srbije nacrtana kao mapa strateške igre 4X, iz javnih podataka.">
+  <meta name="twitter:image" content="https://acailic.github.io/serbiaciv/og-image.png">
+  <meta name="twitter:image:alt" content="Heksagonalna mapa Republike Srbije sa barjacima gradova, u stilu strateške igre">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="module" src="js/i18n/boot.js"></script>
+</head>
+<body>
+  <header id="topbar">
+    <div class="brand" title="Republika Srbija"><span class="brand-emblem" aria-hidden="true">★</span><span class="brand-text">SRBIJA</span></div>
+    <div id="yields" class="yields" aria-label="Prinosi Republike Srbije"></div>
+    <div class="spacer"></div>
+    <div class="search" role="search">
+      <span class="search-ic" aria-hidden="true"></span>
+      <input id="search-input" type="search" placeholder="Pretraga gradova i okruga" autocomplete="off" spellcheck="false"
+        role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="search-results" aria-label="Pretraga gradova i okruga (/ ili Ctrl K)">
+      <kbd class="search-kbd" aria-hidden="true">/</kbd>
+    </div>
+    <div id="turn" class="turn"></div>
+    <div class="tb-buttons">
+      <button id="btn-script" class="btn" aria-label="Promeni pismo" title="Promeni pismo"></button>
+      <button id="btn-share" class="btn" aria-haspopup="dialog" aria-expanded="false" aria-label="Podeli ovaj prikaz" title="Podeli: kopirajte vezu ili preuzmite sliku"></button>
+      <button id="btn-help" class="btn btn-icon" aria-label="Pomoć za tastaturu i miš" title="Pomoć (?)"></button>
+      <button id="btn-pedia" class="btn" aria-label="Otvori Almanah" title="Šta svaki broj znači i odakle dolazi"></button>
+    </div>
+  </header>
+
+  <canvas id="map" role="img" aria-label="Heksagonalna mapa Republike Srbije"></canvas>
+
+  <div id="tooltip" class="tooltip" hidden></div>
+  <aside id="city-panel" class="panel" hidden role="region" aria-label="Detalji"></aside>
+
+  <div id="lens-area">
+    <div id="lens-picker" class="panel lens-picker" hidden role="dialog" aria-label="Izbor sočiva"></div>
+    <div id="legend" class="panel legend" hidden role="group" aria-label="Legenda sočiva"></div>
+    <div id="lens-dock" class="panel lens-dock" role="toolbar" aria-label="Sočiva mape">
+      <button id="btn-res" class="lens-btn res-toggle" aria-pressed="true" aria-label="Resursi na heksima (R)" title="Prikaži ili sakrij resurse na heksima (R)" hidden></button>
+      <div id="lens-quick" class="lens-quick"></div>
+      <button id="btn-lenses" class="lens-btn lens-more" aria-haspopup="dialog" aria-expanded="false" aria-controls="lens-picker"></button>
+    </div>
+  </div>
+
+  <div id="minimap-wrap" class="panel"><canvas id="minimap" aria-label="Minimapa: kliknite da skočite" role="img"></canvas></div>
+  <button id="btn-minimap" class="panel minimap-toggle" aria-pressed="false" aria-controls="minimap-wrap" aria-label="Prikaži minimapu"></button>
+
+  <div id="search-results" class="panel search-results" role="listbox" aria-label="Rezultati pretrage" hidden></div>
+  <div id="share-pop" class="panel share-pop" role="dialog" aria-label="Podeli" hidden></div>
+  <div id="yield-report" class="panel yield-report" role="dialog" aria-label="Izveštaj za Republiku Srbiju" tabindex="-1" hidden></div>
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  <div id="announce" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+  <div id="pedia" class="modal" hidden>
+    <div class="modal-card panel" role="dialog" aria-modal="true" aria-label="Almanah">
+      <button class="close icon-btn" data-close aria-label="Zatvori Almanah">✕</button>
+      <nav id="pedia-nav" aria-label="Stranice Almanaha"></nav>
+      <article id="pedia-body"></article>
+    </div>
+  </div>
+
+  <div id="help" class="modal" hidden>
+    <div class="help-card panel" role="dialog" aria-modal="true" aria-labelledby="help-title"></div>
+  </div>
+
+  <div id="loading">Kartografisanje zemlje…</div>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

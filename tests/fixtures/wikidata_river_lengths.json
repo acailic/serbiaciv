@@ -1,0 +1,2363 @@
+{
+  "head" : {
+    "vars" : [ "item", "itemLabel", "len" ]
+  },
+  "results" : {
+    "bindings" : [ {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1653"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2850"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Дунав"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q14383"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "945"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Сава"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q186901"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "346"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Дрина"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q186901"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "346"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Дрина"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q155657"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "109"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Криваја"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q155657"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "109"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Криваја"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q167916"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "220"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Лим"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q167916"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "220"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Лим"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q214894"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "359"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Тамиш"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q211328"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "185"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Велика Морава"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q211328"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "185"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Велика Морава"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q214894"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "359"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Тамиш"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q120179"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "123"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Колубара"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q134350"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "966"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Тиса"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q134350"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "966"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Тиса"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q378985"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "308"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Западна Морава"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q392840"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "276"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Ибар"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q392840"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "276"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Ибар"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q507421"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "30"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Топчидерска река"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q522077"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "128"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Пчиња"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q793845"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "166"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Брзава"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q753919"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "189"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Тимок"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q753919"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "189"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Тимок"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1140636"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "28"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Црница (река)"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1234357"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "57"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Уб"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q591974"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "295"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Јужна Морава"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q571214"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "124"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Нера"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q580594"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "30"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Градац"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q583062"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "218"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Нишава"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1104502"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "110"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Караш"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q949047"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "50"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Раља"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q959190"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "25"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Обница"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q978571"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "119"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Увац"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1066857"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "90"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Ситница"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1066857"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "90"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Ситница"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q838731"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "55"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Јасеничка река"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q902577"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "129"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Плазовић"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q902577"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "129"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Плазовић"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1318012"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "129"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Пек"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1279841"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "75"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Ђетиња"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1279841"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "75"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Ђетиња"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1279852"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "68"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Власина"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1279852"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "68"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Власина"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1279885"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "58"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Сокобањска Моравица"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1279885"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "58"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Сокобањска Моравица"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1279915"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "75"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Ветерница"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1279915"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "75"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Ветерница"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1288026"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "85"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Јабланица"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1288026"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "85"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Јабланица"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1254817"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "64"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Сврљишки Тимок"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1254817"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "64"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Сврљишки Тимок"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1265868"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "60"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Рашка"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1265868"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "60"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Рашка"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1267558"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "60"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Студеница"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1267558"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "60"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Студеница"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1267588"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "84"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Црни Тимок"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1267588"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "84"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Црни Тимок"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1279831"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "74"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Јерма"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1279831"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "74"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Јерма"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1468206"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "158"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Млава"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1554773"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "65"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Ресава"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1564775"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "51"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Бели Тимок"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1564775"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "51"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Бели Тимок"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1632229"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "24"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Јабланица"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1632229"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "24"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Јабланица"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2060975"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "72"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Рзав"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2060975"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "72"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Рзав"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2894445"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "345"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Belica"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1752429"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "92"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Расина"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2904810"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "26"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Бистрица (притока Лима)"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2905135"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "41"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Бјелица"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2909381"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "12"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Болечица"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2911647"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "186"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Босут (река)"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2510499"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "98"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Голијска Моравица"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2665410"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "37"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Студва"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2665410"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "37"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Студва"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2665542"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "70"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Кереш-ер"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2665542"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "70"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Кереш-ер"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2665686"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "130"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Топлица"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2665686"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "130"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Топлица"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2670544"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "25"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Темштица"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2562033"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "79"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Јасеница"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2562033"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "79"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Јасеница"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2562056"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "79"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Јадар"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2562056"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "79"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Јадар"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2563343"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "71"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Пуста река"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2563343"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "71"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Пуста река"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2578171"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "65"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Јегричка"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2578171"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "65"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Јегричка"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2578191"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "56"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Јерез"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2578191"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "56"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Јерез"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2639354"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "70"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Драговиштица"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q2639354"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "70"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Драговиштица"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3454106"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "62"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Rzav"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3486377"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "477"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Скрапеж (река)"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3506200"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "26"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Сушица (Златибор)"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3138042"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "15"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Мокролушки поток"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3138042"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "15"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Мокролушки поток"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3162822"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "53"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Јарчина"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3178501"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "47.5"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Језава"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3192395"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "34"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Каменица (река)"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3024575"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "24"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Деспотовица (река)"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3031510"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "38"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Косаница"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3032716"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "35"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Дичина"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3102812"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "90"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Тамнава"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3102812"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "90"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Тамнава"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3103963"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "72"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Мостонга"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3103963"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "72"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Мостонга"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3107124"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "57"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Лугомир"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3113534"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "48"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Лепеница"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3113534"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "48"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Лепеница"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3118139"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "17"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Грошничка река"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3118139"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "17"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Грошничка река"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3118267"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "77"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Гружа (река)"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3257455"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "34"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Љубовиђа"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3257455"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "34"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Љубовиђа"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3268249"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "39"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Лужница (река)"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3314106"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "20"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Милешевка"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3334840"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "81"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Надела"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3377655"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "31"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Петровачка река"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3377907"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "33"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Пештан"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3377907"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "33"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Пештан"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3418086"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "85"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Раковички поток"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3593827"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "41"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Чемерница (река)"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3593847"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "95"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Чик"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3594421"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "13"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Ждраљица (река)"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3623934"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "50"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Поречка река"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q3623934"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "50"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Поречка река"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q4985163"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "52"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Будовар"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6470747"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "0.365"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Врело"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q6470747"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "0.365"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Врело"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q7839648"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "50"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Трговишки Тимок"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12275890"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "5.3"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Габерска река"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12275890"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "30.7"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Габерска река"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12275890"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "36"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Габерска река"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q13043065"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "76"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Биначка Морава"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12748766"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "22"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Бањска река"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12749656"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "62"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Велики Рзав"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12749989"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "26"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Вратна (река)"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12750054"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "18"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Вучјанка"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12750529"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "23"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Грза"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q12758214"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "44"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Рача (река)"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q14927037"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "15"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Lisinska reka"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16081717"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "33"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Љиг"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16086072"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "41"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Тегошница"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q16682827"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "31"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Визељ (река)"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18213411"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "32"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Злотска река"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q18213446"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "9"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Прешевска Моравица"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q23960152"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "20"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Пуста река"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q23960160"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "19"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Арнаута"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q31181444"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "12.7"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Барајевска река"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q31183148"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "17.89"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Камешина"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q102069764"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "27.2"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Батлава (река)"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q120467682"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "8"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Кањон реке Темске"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q134350"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "966"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Тиса"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q134350"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "966"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr-ec",
+        "type" : "literal",
+        "value" : "Тиса"
+      }
+    }, {
+      "item" : {
+        "type" : "uri",
+        "value" : "http://www.wikidata.org/entity/Q1653"
+      },
+      "len" : {
+        "datatype" : "http://www.w3.org/2001/XMLSchema#decimal",
+        "type" : "literal",
+        "value" : "2850"
+      },
+      "itemLabel" : {
+        "xml:lang" : "sr",
+        "type" : "literal",
+        "value" : "Дунав"
+      }
+    } ]
+  }
+}
