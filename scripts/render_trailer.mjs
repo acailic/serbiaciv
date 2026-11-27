@@ -84,15 +84,15 @@ try {
     for (const key of ['kicker', 'title', 'sub']) await writeFile(join(temp, `${n}-${key}.txt`), scene[key]);
     const text = (key, fontfile, size, y, color) => `drawtext=fontfile=${fontfile}:textfile=${join(temp, `${n}-${key}.txt`)}:fontsize=${size}:fontcolor=${color}:x=94:y=${y}:shadowcolor=black@0.8:shadowx=2:shadowy=2`;
     const filter = [
-      `scale=2100:1182:force_original_aspect_ratio=increase`,
-      `zoompan=z='min(pzoom+0.00035,1.055)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=1920x1080:fps=30`,
+      // Keep still captures pixel-stable: subpixel zoom on the detailed hex map produces visible shimmer.
+      'scale=1920:1080:flags=lanczos', 'setsar=1',
       'format=yuv420p',
       'drawbox=x=0:y=ih-260:w=iw:h=260:color=0x08121e@0.88:t=fill',
       'drawbox=x=0:y=ih-260:w=iw:h=3:color=0xc9a45c@0.95:t=fill',
       text('kicker', bold, 24, 'h-229', '0xe7c47b'),
       text('title', bold, 54, 'h-181', '0xfff3d5'),
       text('sub', font, 30, 'h-105', '0xe0d5ba'),
-      `fade=t=in:st=0:d=0.35`, `fade=t=out:st=${scene.duration - 0.35}:d=0.35`,
+      `fade=t=in:st=0:d=0.5`, `fade=t=out:st=${scene.duration - 0.5}:d=0.5`,
     ].join(',');
     run('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', '-loop', '1', '-framerate', '30', '-i', join(temp, `scene-${n}.png`),
       '-vf', filter, '-t', String(scene.duration), '-an', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '24',
