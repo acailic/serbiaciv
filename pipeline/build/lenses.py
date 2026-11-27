@@ -270,7 +270,9 @@ def _notes(w: dict) -> dict[str, str]:
     worldcover = _source("ESA WorldCover", w["landcover"])
     return {
         "density": f"Procena broja stanovnika {RZS} za {w['latest']}. godinu, podeljena površinom opštine.{NO_KOSOVO}",
-        "pop_change": f"Procena broja stanovnika {RZS}: {w['latest']}. godina prema {w['base']}. godini.{NO_KOSOVO}",
+        "pop_change": f"Procena broja stanovnika {RZS}: {w['latest']}. godina prema {w['base']}. godini. Niz procena je "
+                      f"rebaziran na Popis {w['census']}., pa je deo promene do te godine ispravka procene, a ne "
+                      f"stvarni priraštaj.{NO_KOSOVO}",
         "natural_increase": f"Prirodni priraštaj na 1.000 stanovnika po podacima {RZS} za {w['natural_increase']}. godinu.{NO_KOSOVO}",
         "age65": f"Udeo stanovništva starog 65 i više godina u proceni {RZS} za {w['pop_65']}. godinu.{NO_KOSOVO}",
         "education": f"Udeo stanovništva starog 15 i više godina sa završenim visokim obrazovanjem. Izvor: {popis}.{NO_KOSOVO}",

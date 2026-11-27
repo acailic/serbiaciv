@@ -89,7 +89,7 @@ export const gdpRow = (o) => {
     : "";
 };
 
-// " · ▲ 3.4% since 2021" from growth / growth_years (cities and states), compared with the nation in the tooltip.
+// " · ▲ 3.4% since 2022" from growth / growth_years (cities and states), compared with the nation in the tooltip.
 // Empty when growth is missing (null means "not measured", never zero).
 export function growthSpan(o, n = null) {
   if (!Number.isFinite(o?.growth)) return "";

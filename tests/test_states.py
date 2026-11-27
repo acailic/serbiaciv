@@ -54,16 +54,16 @@ ROWS = {
 
 # okrug → population, employed, unemployment, net wage, share 65+, GDP, growth, yields
 EXPECTED = {
-    "RS110": (258000, 106000, 0.0619, 128000.0, 0.183, 1000000000, -0.0301,
+    "RS110": (258000, 106000, 0.0619, 128000.0, 0.183, 1000000000, -0.0227,
               {"food": 100, "production": 18600, "gold": 1000000000, "science": 56000, "culture": 3500}),
-    "RS123": (368000, 90000, 0.0909, 105000.0, 0.19, 2000000000, -0.0108,
+    "RS123": (368000, 90000, 0.0909, 105000.0, 0.19, 2000000000, -0.0081,
               {"food": 1000, "production": 21000, "gold": 2000000000, "science": 28000, "culture": 2500}),
-    "RS216": (66000, 17700, 0.1238, 99609.6, 0.2281, 500000000, -0.1081,
+    "RS216": (66000, 17700, 0.1238, 99609.6, 0.2281, 500000000, -0.0833,
               {"food": 3500, "production": 5480, "gold": 500000000, "science": 1470, "culture": 230}),
-    "RS211": (28000, 6000, 0.1176, 80000.0, 0.25, 300000000, -0.125,
+    "RS211": (28000, 6000, 0.1176, 80000.0, 0.25, 300000000, -0.0968,
               {"food": 900, "production": 3900, "gold": 300000000, "science": 600, "culture": 150}),
 }
-NATION = (720000, 219700, 0.0808, 109082.36, 0.1933, 3800000000, -0.0323,
+NATION = (720000, 219700, 0.0808, 109082.36, 0.1933, 3800000000, -0.0244,
           {"food": 5500, "production": 48980, "gold": 3800000000, "science": 86070, "culture": 6380})
 NATION_JOBS = {"agriculture": 5500, "mining": 180, "manufacturing": 36600, "trade": 100, "construction": 12200,
                "information": 28520, "professional": 57550, "arts": 6380}
@@ -177,7 +177,7 @@ class StatesTest(unittest.TestCase):
                 self.assertEqual((s["population"], s["employed"], s["unemployment"]), (population, employed, unemployment))
                 self.assertEqual((s["wage_net"], s["age65"]), (wage, age65))
                 self.assertEqual((s["gdp"], s["gdp_year"], s["gdp_estimated"]), (gdp, 2023, None))
-                self.assertEqual((s["growth"], s["growth_years"]), (growth, [2021, 2025]))
+                self.assertEqual((s["growth"], s["growth_years"]), (growth, [2022, 2025]))
                 self.assertEqual(s["yields"], yields)
                 for field in ("median_income", "median_rent", "home_value", "rent_burden", "gdp_by_industry", "gdp_undisclosed"):
                     self.assertIsNone(s[field], (fips, field))
@@ -279,7 +279,7 @@ class StatesTest(unittest.TestCase):
         population, employed, unemployment, wage, age65, gdp, growth, yields = NATION
         self.assertEqual((n["population"], n["employed"], n["unemployment"]), (population, employed, unemployment))
         self.assertEqual((n["wage_net"], n["age65"], n["gdp"]), (wage, age65, gdp))
-        self.assertEqual((n["growth"], n["growth_years"]), (growth, [2021, 2025]))
+        self.assertEqual((n["growth"], n["growth_years"]), (growth, [2022, 2025]))
         self.assertEqual(n["yields"], yields)
         self.assertEqual({k: v for k, v in n["jobs"].items() if v}, NATION_JOBS)
         with_data = [s for s in states_json if s["population"] is not None]

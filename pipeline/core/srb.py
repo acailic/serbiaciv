@@ -107,7 +107,9 @@ YIELD_KEYS = [y["key"] for y in YIELDS]
 CITY_MIN_URBAN_POP = 10000  # a municipality is a city when it holds an urban settlement of this size (Popis 2022)
 CITY_MIN_POP = 25000  # … and its territory has at least this many inhabitants (RZS estimate, latest year)
 HOME_BANNERS = 25  # banners at the home view: the most populous cities
-GROWTH_YEARS = (2021, None)  # population change is measured from this year to the latest estimate (None = latest)
+GROWTH_YEARS = (2022, None)  # population change is measured from the census year to the latest estimate (None = latest):
+# RZS rebased its estimate series on Popis 2022 and never revised the years before it, so a 2021 base would carry the
+# census correction (a median step of -3.5 % between 2021 and 2022) as if it were a real loss of people.
 LENS_CHANGE_YEARS = (2015, None)  # the pop_change lens: a ten-year change, unlike GROWTH_YEARS
 
 # --- web/data: the shapes the checker, the lenses and the municipalities table share ---------------------------------

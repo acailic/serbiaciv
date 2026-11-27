@@ -308,7 +308,7 @@ class CitiesTest(unittest.TestCase):
             self.assertIs(c["metro"], True)  # upstream's "not a micropolitan area": its leaderboards need it
             for field in ("median_income", "median_rent", "home_value", "rent_burden", "gdp_by_industry", "gdp_undisclosed"):
                 self.assertIsNone(c[field], (c["id"], field))
-            self.assertEqual((c["gdp_year"], c["growth_years"]), (2023, [2021, 2025]))
+            self.assertEqual((c["gdp_year"], c["growth_years"]), (2023, None if c["id"] == TRSTENIK else [2022, 2025]))
             self.assertEqual(c["states"], [territory.oblast_of(c["id"])])
             self.assertEqual(c["full"], f"{c['name']} ({okrug_name(territory.name(territory.oblast_of(c['id'])))})")
 
@@ -339,7 +339,7 @@ class CitiesTest(unittest.TestCase):
         self.assertIsNone(beograd["age65"])
         self.assertIsNone(beograd["wage_net"])
         self.assertEqual(beograd["settlement_population"], 190000)  # the largest urban settlement over the parts
-        self.assertEqual(beograd["growth"], -0.0113)
+        self.assertEqual(beograd["growth"], -0.007)  # 1,137,000 ÷ 1,145,000 − 1: from the census year
         self.assertEqual(beograd["pop_series"], {"2021": 1150000, "2022": 1145000, "2023": 1140000, "2024": 1138000, "2025": 1137000})
 
     def test_a_part_without_a_field_leaves_the_aggregate_field_null(self):
@@ -544,7 +544,7 @@ class CitiesTest(unittest.TestCase):
     def test_pop_series_keeps_the_missing_years_null(self):
         trstenik = self.city(self.build()[0], TRSTENIK)
         self.assertEqual(trstenik["pop_series"], {"2021": 43000, "2022": None, "2023": 42500, "2024": 42300, "2025": 42000})
-        self.assertEqual((trstenik["growth"], trstenik["growth_years"]), (-0.0233, [2021, 2025]))
+        self.assertEqual((trstenik["growth"], trstenik["growth_years"]), (None, None))  # the census-year figure is the missing one
 
 
 if __name__ == "__main__":
