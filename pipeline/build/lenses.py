@@ -185,7 +185,7 @@ def unit_values(geoid: str, world: dict, census: dict, rzs: dict) -> dict[str, f
 def spread(values: list, owner: list, county: list) -> list:
     """Per hex, the value of the municipality that owns it (`values` in _world.counties order): None on water and
     foreign land, and wherever the municipality has no value."""
-    return [values[k] if o >= 0 and k >= 0 else None for o, k in zip(owner, county)]
+    return [values[k] if o >= 0 and k >= 0 else None for o, k in zip(owner, county, strict=True)]
 
 
 def percentile_domain(values: list, log: bool = False) -> list | None:
@@ -341,7 +341,7 @@ def land_lenses(owner: list, world_json: dict, when: dict) -> list[dict]:
 
     def per_hex(cells: list, value) -> list:
         """value(hex) wherever the hex is Serbia's; None elsewhere."""
-        return [value(v) if ok and v is not None else None for ok, v in zip(mine, cells)]
+        return [value(v) if ok and v is not None else None for ok, v in zip(mine, cells, strict=True)]
 
     table = {entry["id"]: entry for entry in world_json["tables"]["cover"]}
     missing = [i for i in COVER_SHOWN if i not in table]
@@ -369,7 +369,7 @@ def build() -> None:
     notes, descriptions = _notes(when), _descriptions(when)
     geoids = world["counties"]
     rows = [unit_values(geoid, world, census, rzs) for geoid in geoids]
-    owner, county = world["owner"], world["county"]
+    owner = world["owner"]
 
     lenses, indexed_values = [], {}
     for meta in UNIT_LENSES:
@@ -381,7 +381,7 @@ def build() -> None:
         del lens["values"]
         lens["value_source"] = {"kind": "municipality", "file": "lens-values.json", "key": meta["id"]}
         lenses.append(lens)
-    for lens, field in zip(land_lenses(owner, world_json, when), ("elev", "relief", "cover")):
+    for lens, field in zip(land_lenses(owner, world_json, when), ("elev", "relief", "cover"), strict=True):
         del lens["values"]
         source = {"kind": "world", "field": field}
         if field == "cover":
@@ -394,7 +394,7 @@ def build() -> None:
     for interim, which in (("dem", "elevation and relief"), ("landcover", "land_cover")):
         if not when[interim]:
             print(f"    ! interim {interim} names no vintage: the {which} note names no year")
-    without = [g for g, row in zip(geoids, rows) if row["population"] is None and not territory.in_kosovo(g)]
+    without = [g for g, row in zip(geoids, rows, strict=True) if row["population"] is None and not territory.in_kosovo(g)]
     print(f"    {len(geoids)} municipalities, {len(without)} outside Kosovo and Metohija without a population estimate"
           + (f": {', '.join(without)}" if without else ""))
     write_web("lenses.json", {"version": 2, "vintage": vintage_text(rzs, census), "groups": GROUPS, "lenses": lenses})

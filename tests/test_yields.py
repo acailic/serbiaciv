@@ -30,6 +30,12 @@ class GrowthTest(unittest.TestCase):
         self.assertEqual(yields.growth([100, None], [2021, 2025]), (None, None))
         self.assertEqual(yields.growth([100, 200], [2021, 2025]), (None, None))  # more than 25 %: not believed
 
+    def test_a_series_out_of_step_with_its_years_is_refused(self):
+        with self.assertRaises(ValueError):
+            yields.growth([100, 102], [2021, 2022, 2025])
+        with self.assertRaises(ValueError):
+            yields.growth([100, 102, 104, 106], [2021, 2022, 2025])
+
 
 class RankTest(unittest.TestCase):
     def test_ranks_and_peers(self):

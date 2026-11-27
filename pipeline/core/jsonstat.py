@@ -23,7 +23,7 @@ def parse(doc: dict) -> list[dict]:
     values, statuses = doc["value"], doc.get("status") or {}
     cells = []
     for flat in range(math.prod(sizes)):
-        cell = {d: cats[pos] for d, cats, pos in zip(dims, categories, _positions(flat, sizes))}
+        cell = {d: cats[pos] for d, cats, pos in zip(dims, categories, _positions(flat, sizes), strict=True)}
         cell["value"] = values.get(str(flat))
         cell["status"] = statuses.get(str(flat))
         cells.append(cell)

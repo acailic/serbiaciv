@@ -49,7 +49,7 @@ class Placer:
         self.proj = MapProjection(**world["projection"])
         owner, water = world["owner"], world["water"]
         self.owner = owner
-        self.land = [o >= 0 and w == srb.LAND for o, w in zip(owner, water)]
+        self.land = [o >= 0 and w == srb.LAND for o, w in zip(owner, water, strict=True)]
         self.states = world["states"]
         self.counties = world["counties"]
         self.county_of = world["county"]
@@ -125,7 +125,7 @@ def land_cells(web_dir: Path) -> list[bool] | None:
     not the map this pipeline writes: the contract checker owns that file's shape, a site layer only reads it."""
     try:
         world = json.loads((Path(web_dir) / "world.json").read_text(encoding="utf-8"))
-        land = [o >= 0 and w == srb.LAND for o, w in zip(world["owner"], world["water"])]
+        land = [o >= 0 and w == srb.LAND for o, w in zip(world["owner"], world["water"], strict=True)]
         if len(land) == world["grid"]["cols"] * world["grid"]["rows"]:
             return land
     except (OSError, ValueError, KeyError, TypeError):

@@ -820,7 +820,7 @@ def check_counties(r: Report, doc, ctx: dict | None, cities: dict, source_ids: s
         r.fail(f"counties.json: columns must be srb.COUNTY_COLUMNS in order {list(srb.COUNTY_COLUMNS)}, got {cols if isinstance(cols, list) else cols!r}")
         return
     bad = []
-    for f, fmt in zip(fields, srb.COUNTY_COLUMN_FORMATS):
+    for f, fmt in zip(fields, srb.COUNTY_COLUMN_FORMATS, strict=True):  # a column without a format must stop this, not shorten it
         if f["format"] != fmt or f["higher_is"] not in HIGHER_IS or not is_text(f["label"]) or not is_text(f["description"]) \
                 or not is_text(f["source"]) or (f["unit"] is not None and not isinstance(f["unit"], str)):
             bad.append(f["key"])
@@ -831,7 +831,7 @@ def check_counties(r: Report, doc, ctx: dict | None, cities: dict, source_ids: s
     if not isinstance(rows, list) or any(not isinstance(row, list) or len(row) != len(cols) for row in rows):
         r.fail(f"counties.json: rows must be lists of {len(cols)} values")
         return
-    fmt = dict(zip(cols, srb.COUNTY_COLUMN_FORMATS))
+    fmt = dict(zip(cols, srb.COUNTY_COLUMN_FORMATS, strict=True))
     okrugs = {s.get("fips") for s in ctx["states"] if isinstance(s, dict)} if ctx and ctx["states"] else None
     geoids = [c.get("geoid") for c in ctx["counties"]] if ctx and ctx["counties"] else None
     holds = set(k for k in (ctx["w"].get("county") or []) if is_int(k) and k >= 0) if ctx else set()

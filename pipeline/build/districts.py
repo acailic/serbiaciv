@@ -250,7 +250,7 @@ def build() -> None:
     # The Republic row of the industry workbook: Serbia without KiM (the census was not taken there).
     _, rep = walk_cells(Census(), "industry")
     national = {}
-    for (key, nace, _), fragment in zip(srb.INDUSTRIES, srb.CENSUS_NACE_FRAGMENTS):
+    for (key, nace, _), fragment in zip(srb.INDUSTRIES, srb.CENSUS_NACE_FRAGMENTS, strict=True):
         hits = [v for k, v in rep.items() if fragment in k]
         if len(hits) != 1:
             raise ValueError(f"industry workbook: section {nace}: {len(hits)} matches")
@@ -293,7 +293,7 @@ def check(web_dir) -> list:
     out = []
     ids = {c["id"] for c in doc.get("catalog", [])}
     if ids != set(BY_ID):
-        out.append(("FAIL", f"districts.json: catalog ids differ from pipeline/build/districts.py"))
+        out.append(("FAIL", "districts.json: catalog ids differ from pipeline/build/districts.py"))
     try:
         cities = json.loads((web_dir / "cities.json").read_text(encoding="utf-8"))
         city_ids = {c["id"] for c in (cities["cities"] if isinstance(cities, dict) else cities)}

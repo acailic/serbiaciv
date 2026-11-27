@@ -54,7 +54,9 @@ def growth(series: list | None, years: list[int], start: int = srb.GROWTH_YEARS[
 
     (None, None) when the start or the latest figure is missing, and when the change exceeds GROWTH_LIMIT either way.
     """
-    points = list(zip(series or (), years))
+    if series is None:
+        return None, None
+    points = list(zip(series, years, strict=True))  # out of step with its years is a bug, never a shorter series
     if not points:
         return None, None
     latest, latest_year = points[-1]

@@ -126,7 +126,7 @@ def passengers_from_jsonstat(data: dict, country: str = "RS") -> dict[str, dict[
     def flat(code_i: int, time_i: int) -> str:
         idx = [code_i if n == "rep_airp" else time_i if n == "time" else fixed[n] for n in names]
         f, stride = 0, 1
-        for n, i in zip(reversed(names), reversed(idx)):
+        for n, i in zip(reversed(names), reversed(idx), strict=True):
             f += i * stride
             stride *= sizes[names.index(n)]
         return str(f)

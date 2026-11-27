@@ -68,7 +68,7 @@ def sum_tables(tables: list) -> dict | None:
 
 def weighted_mean(values: list, weights: list) -> float | None:
     """Σ(value × weight) ÷ Σ weight over the pairs where both are known; None without such a pair."""
-    pairs = [(v, w) for v, w in zip(values, weights) if v is not None and w]
+    pairs = [(v, w) for v, w in zip(values, weights, strict=True) if v is not None and w]
     return sum(v * w for v, w in pairs) / sum(w for _, w in pairs) if pairs else None
 
 
@@ -119,7 +119,7 @@ def check_parts(unit_id: str, rows: list[dict], census_units: dict) -> None:
 
 def serbian_land(world: dict) -> list[bool]:
     """Per hex: owned by an okrug and not water. Kosovo's hexes are Serbian land too."""
-    return [owner >= 0 and water == srb.LAND for owner, water in zip(world["owner"], world["water"])]
+    return [owner >= 0 and water == srb.LAND for owner, water in zip(world["owner"], world["water"], strict=True)]
 
 
 def claim_cell(grid: HexGrid, cells, x: float, y: float, taken: set) -> int | None:
@@ -265,7 +265,7 @@ def build() -> None:
             "growth_years": years,
             "counties": sorted(parts),
             "footprint": [],
-            "pop_series": {str(year): round(v) if v is not None else None for year, v in zip(rzs["pop_years"], series)},
+            "pop_series": {str(year): round(v) if v is not None else None for year, v in zip(rzs["pop_years"], series, strict=True)},
             "ranks": {},
             "peers": [],
             "settlement_population": settlement["population"],

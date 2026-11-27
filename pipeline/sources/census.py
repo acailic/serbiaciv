@@ -219,7 +219,7 @@ class Census(Source):
                                    "total15": total - children if total is not None and children is not None else None}
                 elif table == "industry":
                     out = {"total": _find(cells, "Укупно Total")}
-                    for code, fragment in zip("ABCDEFGHIJKLMNOPQRSTU", nace_fragments):
+                    for code, fragment in zip("ABCDEFGHIJKLMNOPQRSTU", nace_fragments, strict=True):
                         hits = [v for k, v in cells.items() if fragment in k]
                         if len(hits) > 1:
                             raise ValueError(f"{ident}: ambiguous industry {code}")

@@ -46,6 +46,10 @@ class SrbConstants(unittest.TestCase):
         self.assertTrue(all(v.isdigit() for v in srb.RZS_DATASETS.values()))
         self.assertEqual(srb.RZS_DATASETS["employment_nace"], "240205")
 
+    def test_county_columns_and_formats_are_pairs(self):
+        """The checker zips the two: a column without a format must never shorten its loop."""
+        self.assertEqual(len(srb.COUNTY_COLUMNS), len(srb.COUNTY_COLUMN_FORMATS))
+
 
 class Shape(unittest.TestCase):
     def test_area_with_a_hole(self):

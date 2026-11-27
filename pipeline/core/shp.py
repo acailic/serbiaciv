@@ -44,7 +44,7 @@ def shapefile_bases(path: Path) -> list[str]:
 
 def records(reader: shapefile.Reader) -> Iterator[tuple[dict, list]]:
     """(properties, parts) for every record that has geometry."""
-    for shape, rec in zip(reader.shapes(), reader.records()):
+    for shape, rec in zip(reader.shapes(), reader.records(), strict=True):  # a record without its shape is a broken file
         if shape.points:
             yield dict(rec.as_dict()), parts(shape)
 

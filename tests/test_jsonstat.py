@@ -25,5 +25,14 @@ class ParseTest(unittest.TestCase):
         self.assertEqual(cells, {("x", "p"): 1.5, ("x", "q"): None, ("y", "p"): None, ("y", "q"): 4.0})
 
 
+    def test_a_size_out_of_step_with_the_dimensions_is_refused(self):
+        """A cut-off cube must not come back as cells that silently lack a dimension."""
+        doc = {"version": "2.0", "id": ["a", "b"], "size": [2],
+               "dimension": {"a": {"category": {"index": {"x": 0, "y": 1}}}, "b": {"category": {"index": {"p": 0, "q": 1}}}},
+               "value": {"0": 1.5}}
+        with self.assertRaises(ValueError):
+            jsonstat.parse(doc)
+
+
 if __name__ == "__main__":
     unittest.main()

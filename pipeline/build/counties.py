@@ -102,7 +102,7 @@ def build() -> None:
     fs = fields()
     columns = [field["key"] for field in fs]
     fmt = {field["key"]: field["format"] for field in fs}
-    records = [record(geoid, cells, world, cities, census, rzs) for geoid, cells in zip(world["counties"], world["cells_of_county"])]
+    records = [record(geoid, cells, world, cities, census, rzs) for geoid, cells in zip(world["counties"], world["cells_of_county"], strict=True)]
     rows = [[values[column] if fmt[column] == "text" else round_value(fmt[column], values[column]) for column in columns]
             for values in records]
     print(f"    {len(rows)} municipalities, {sum(1 for v in records if v['city'])} belonging to a city, "
