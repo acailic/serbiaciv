@@ -230,6 +230,22 @@ class ExportTest(OfficeCase, unittest.TestCase):
         self.assertEqual(len(Office.seen), 2)  # --force asks again, after another pause
         self.assertEqual(self.pause.call_count, 2)
 
+    def test_failed_forced_refresh_preserves_the_existing_export_and_manifest(self):
+        selection = {"indicators": ["1IND01"]}
+        rzs.export(self.ds, selection, "t.json")
+        path = self.raw / "rzs_db" / "t.json"
+        previous, manifest = path.read_bytes(), fetch.read_manifest("rzs_db")
+        with mock.patch("urllib.request.urlopen", side_effect=TimeoutError("offline")), mock.patch.object(fetch, "BACKOFF", 0):
+            with self.assertRaises(TimeoutError):
+                rzs.export(self.ds, selection, "t.json", force=True)
+        self.assertEqual(path.read_bytes(), previous)
+        self.assertEqual(fetch.read_manifest("rzs_db"), manifest)
+        Office.export = b'{"error":"bad response"}'
+        with self.assertRaises(fetch.UnexpectedContentError):
+            rzs.export(self.ds, selection, "t.json", force=True)
+        self.assertEqual(path.read_bytes(), previous)
+        self.assertEqual(fetch.read_manifest("rzs_db"), manifest)
+
     def test_a_body_that_is_not_a_json_list_is_rejected_and_forgotten(self):
         for bad in (b"<html>greska</html>", b'{"error": "syntax"}', b""):
             with self.subTest(body=bad):

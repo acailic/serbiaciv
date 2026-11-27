@@ -236,7 +236,7 @@ class CensusTest(unittest.TestCase):
 
     def test_the_interim_lists_the_files_it_read(self):
         self.assertEqual(sorted(self.data), ["_files", "settlements", "units", "vintage"])
-        self.assertEqual(sorted(self.data["_files"]), sorted(srb.CENSUS_FILES[k][1] for k in TABLES))
+        self.assertEqual(sorted(self.data["_files"]), sorted(srb.CENSUS_FILES[k][1] for k in census.FETCH_TABLES))
 
     def test_units_and_their_kinds(self):
         self.assertEqual(sorted(self.units), ["70025", "70203", "71323", "71331", "79014", "79022", "89010"])
@@ -360,13 +360,18 @@ class FetchTest(unittest.TestCase):
                 mock.patch.object(fetch, "RAW", Path(tmp)), mock.patch.object(census.time, "sleep") as sleep, \
                 mock.patch("builtins.print"):
             Census().fetch()
-            self.assertEqual(Handler.paths, [f"/{srb.CENSUS_FILES[k][0]}/{srb.CENSUS_FILES[k][1]}" for k in TABLES])
+            self.assertEqual(Handler.paths, [f"/{srb.CENSUS_FILES[k][0]}/{srb.CENSUS_FILES[k][1]}" for k in census.FETCH_TABLES])
             self.assertEqual(sorted(p.name for p in (Path(tmp) / "census").iterdir()),
-                             sorted([*(srb.CENSUS_FILES[k][1] for k in TABLES), "manifest.json"]))
-            self.assertEqual([call.args for call in sleep.call_args_list], [(1.0,)] * len(TABLES))  # a request a second
+                             sorted([*(srb.CENSUS_FILES[k][1] for k in census.FETCH_TABLES), "manifest.json"]))
+            self.assertEqual([call.args for call in sleep.call_args_list], [(1.0,)] * len(census.FETCH_TABLES))
             Census().fetch()  # cached: no request, no waiting
-            self.assertEqual(len(Handler.paths), len(TABLES))
-            self.assertEqual(sleep.call_count, len(TABLES))
+            self.assertEqual(len(Handler.paths), len(census.FETCH_TABLES))
+            self.assertEqual(sleep.call_count, len(census.FETCH_TABLES))
+
+    def test_fetch_includes_the_occupation_workbook_required_by_citizens(self):
+        with mock.patch.object(Census, "download") as download, mock.patch.object(census.time, "sleep"):
+            Census().fetch()
+        self.assertIn(srb.CENSUS_FILES["occupation"][1], [call.args[1] for call in download.call_args_list])
 
 
 if __name__ == "__main__":

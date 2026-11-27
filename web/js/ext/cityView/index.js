@@ -110,6 +110,7 @@ export async function install(app) {
 
   function show(city, { fit = true } = {}) {
     if (!city) return;
+    app.ensureLensData?.().catch(() => app.ui.toast("Podaci o stanovništvu po heksu nisu učitani. Otvorite pregled ponovo za novi pokušaj."));
     const same = cv.city === city && cv.dock && !cv.dock.hidden;
     cv.city = city;
     const m = buildModel(app, city);
@@ -467,7 +468,15 @@ export async function install(app) {
   const wantBadges = (Rpx) => {
     if (Rpx > BADGE_RPX && app.data.districts === undefined) app.loadData("districts").catch(() => {});
   };
-  app.on("data", (e) => { if (e?.name === "districts") setBadges(e.data); });
+  app.on("data", (e) => {
+    if (e?.name === "districts") setBadges(e.data);
+    if (e?.name === "lens-values" && cv.city && cv.model) {
+      const updated = buildModel(app, cv.city);
+      cv.model.tiles = updated.tiles;
+      cv.model.residentsSum = updated.residentsSum;
+      app.requestDraw();
+    }
+  });
   app.on("camera", (e) => wantBadges(e?.Rpx ?? 0));
   if (app.data.districts) setBadges(app.data.districts);
   else wantBadges(app.w.grid.R * app.cam.scale);

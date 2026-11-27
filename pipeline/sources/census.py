@@ -11,6 +11,8 @@ from ..core.srtext import fold_key, to_latin
 
 TABLES = ("settlement_population", "settlement_age_sex", "municipality_age_sex", "ethnicity", "religion",
           "education", "activity", "industry", "commute", "migration")
+# The citizens builder reads occupation directly, even though process() does not fold it into census.json.
+FETCH_TABLES = (*TABLES, "occupation")
 # Labels the census uses where the territory tree uses a different name.
 ALIASES = {("beogradska oblast grad beograd", "RS110"): "79014", ("novi sad", "RS123"): "89010",
            ("palilula", "RS110"): "70203", ("palilula", "79022"): "71323"}
@@ -64,7 +66,7 @@ class Census(Source):
                       description="Podaci Popisa 2022 po opštinama i naseljima.", used_for=["Stanovništvo"])
 
     def fetch(self, force=False):
-        for key in TABLES:
+        for key in FETCH_TABLES:
             media, filename = srb.CENSUS_FILES[key]
             if force or not (fetch.RAW / self.id / filename).exists():
                 if not self.offline:
@@ -237,4 +239,4 @@ class Census(Source):
             settlements.append({**s, "population": _find(cells, "Укупно Total") if cells else None,
                                 "age": age_by_settlement.get((s["unit"], fold_key(s["name"])) )})
         return {"vintage": self.info.title, "settlements": settlements, "units": units,
-                "_files": [srb.CENSUS_FILES[key][1] for key in TABLES]}
+                "_files": [srb.CENSUS_FILES[key][1] for key in FETCH_TABLES]}

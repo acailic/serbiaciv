@@ -105,11 +105,15 @@ def ratio(rec: dict | None, num: list[str], den: list[str]) -> float | None:
 def census_values(rec: dict | None) -> dict[str, float | None]:
     """The six census lenses from one census.units record, as fractions of 1."""
     rec = rec or {}
+    commute = rec.get("commute") or {}
+    employed = (rec.get("activity") or {}).get("employed")
+    other_unit, other_oblast = commute.get("other_unit"), commute.get("other_oblast")
     return {
         "education": ratio(rec.get("education"), ["higher"], ["total15"]),
         "unemployment": ratio(rec.get("activity"), ["unemployed"], ["employed", "unemployed"]),
         "manufacturing": ratio(rec.get("industry"), ["C"], ["total"]),  # NACE section C
-        "commute": ratio(rec.get("commute"), ["other_unit", "other_oblast"], ["total"]),
+        "commute": ((other_unit + other_oblast) / employed
+                    if other_unit is not None and other_oblast is not None and employed else None),
         "orthodox": ratio(rec.get("religion"), ["orthodox"], ["total"]),
         "serbs": ratio(rec.get("ethnicity"), ["srbi"], ["total"]),
     }

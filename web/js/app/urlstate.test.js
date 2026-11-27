@@ -26,3 +26,25 @@ test("writing a map view preserves the selected script in a shared link", () => 
     Object.assign(globalThis, previous);
   }
 });
+
+test("unregistered extension parameters survive a write until their handlers register", async () => {
+  const previous = { window: globalThis.window, location: globalThis.location, history: globalThis.history, document: globalThis.document };
+  const location = { hash: "#city=79014&view=city", pathname: "/", search: "" };
+  globalThis.location = location;
+  globalThis.window = { addEventListener() {} };
+  globalThis.document = { documentElement: { dataset: { script: "lat" } } };
+  globalThis.history = { pushState(_s, _t, url) { location.hash = url.slice(url.indexOf("#")); },
+    replaceState(_s, _t, url) { location.hash = url.slice(url.indexOf("#")); } };
+  try {
+    const state = createHashState({ read: () => ({ city: "79014" }), apply() {} });
+    state.flush();
+    assert.match(location.hash, /view=city/);
+    let view = null;
+    state.register("view", { get: () => view, set: (v) => { view = v; } });
+    await Promise.resolve();
+    assert.equal(view, "city");
+    view = null;
+    state.flush();
+    assert.doesNotMatch(location.hash, /view=/);
+  } finally { Object.assign(globalThis, previous); }
+});

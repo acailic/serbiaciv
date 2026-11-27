@@ -465,6 +465,7 @@ export function initLensDock(opts) {
       saveRecent(recent);
       renderQuick();
     },
+    invalidate() { histCache.clear(); },
     openPicker,
     closePicker,
     clearBand() { setBand(null); },

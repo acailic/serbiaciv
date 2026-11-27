@@ -147,6 +147,42 @@ try {
   check(await eventually(() => !document.getElementById("loading") && window.__app?.state.lens?.id === "density", null, 20000),
     "a shared density lens link did not load the map");
 
+  // Extension state must survive an initial URL write while a stylesheet delays extension registration.
+  for (const [hash, mode] of [["#city=79014&view=city", "city"], ["#advisor=economy", "advisor"]]) {
+    const slow = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+    await slow.route("**/css/cityview.css", async (route) => {
+      await new Promise((resolve) => setTimeout(resolve, 1200));
+      await route.continue();
+    });
+    await slow.goto(`${base}${hash}`, { waitUntil: "domcontentloaded" });
+    const restored = await slow.waitForFunction((expected) => window.__app?.mode === expected, mode, { timeout: 20000 })
+      .then(() => true, () => false);
+    check(restored, `shared ${mode} link lost its view while extensions loaded`);
+    await slow.close();
+  }
+
+  // A transient failure must retry without a reload and update a City View opened during recovery.
+  const recovery = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+  let attempts = 0;
+  await recovery.route("**/data/lens-values.json", async (route) => {
+    if (++attempts === 1) return route.abort();
+    await new Promise((resolve) => setTimeout(resolve, 400));
+    return route.continue();
+  });
+  await recovery.goto(base, { waitUntil: "load" });
+  await recovery.waitForFunction(() => window.__app?.cityView, null, { timeout: 20000 });
+  await recovery.evaluate(() => {
+    window.__app.setLens("density");
+    window.__app.cityView.open(window.__app.cityById.get("79014"));
+  });
+  const recovered = await recovery.waitForFunction(() => {
+    const app = window.__app;
+    return app.state.lens?.values?.some((value) => value != null)
+      && app.cityView.model?.tiles?.some((tile) => tile.residents != null);
+  }, null, { timeout: 20000 }).then(() => true, () => false);
+  check(recovered && attempts >= 2, `lens data and City View did not recover after a failed download (${attempts} attempts)`);
+  await recovery.close();
+
   const ok = problems.length === 0;
   console.log(JSON.stringify({ ok, base, checks, problems, requested: [...requested].sort() }, null, 2));
   process.exitCode = ok ? 0 : 1;

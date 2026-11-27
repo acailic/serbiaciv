@@ -255,6 +255,12 @@ class UnitValuesTest(unittest.TestCase):
         self.assertEqual(d["commute"], 100 / 900)  # a published 0 is a term like any other
         self.assertEqual(d["serbs"], 1.0)
 
+    def test_commuting_is_a_share_of_all_employed_not_only_daily_migrants(self):
+        record = {"activity": {"employed": 6311}, "commute": {"total": 3160, "other_unit": 661, "other_oblast": 227}}
+        self.assertAlmostEqual(lenses.census_values(record)["commute"], 888 / 6311)
+        record["activity"]["employed"] = None
+        self.assertIsNone(lenses.census_values(record)["commute"])
+
     def test_change_needs_the_base_year(self):
         d = self.values("70467")  # no estimate for 2015
         self.assertEqual(d["population"], 3025)

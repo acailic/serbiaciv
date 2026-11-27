@@ -160,8 +160,16 @@ def export(ds: Dataset, selection: dict[str, list[str]], rel_path: str, *, force
     A body that is not a JSON list (an error page, an empty answer) raises UnexpectedContentError
     and is discarded, so that the next run asks again.
     """
-    if force:
-        fetch.discard(SOURCE_ID, rel_path)  # fetch.post() has no --force of its own
+    def read_records(path):
+        try:
+            records = json.loads(path.read_text(encoding="utf-8"))
+        except (ValueError, UnicodeError) as exc:
+            raise fetch.UnexpectedContentError(f"{ds.subarea} → {rel_path}: the office's answer is not JSON ({exc})") from exc
+        if not isinstance(records, list):
+            raise fetch.UnexpectedContentError(
+                f"{ds.subarea} → {rel_path}: the office's answer is not a list of records but {type(records).__name__}")
+        return records
+
     _pause(rel_path, force)
     path = fetch.post(
         SOURCE_ID,
@@ -175,14 +183,12 @@ def export(ds: Dataset, selection: dict[str, list[str]], rel_path: str, *, force
         },
         rel_path,
         headers={"X-Requested-With": "XMLHttpRequest", "Referer": RZS_RESULT_URL.format(subarea=ds.subarea)},
+        force=force,
+        validate=read_records,
     )
     try:
-        records = json.loads(path.read_text(encoding="utf-8"))
-    except ValueError as exc:  # JSONDecodeError, or a body that is not UTF-8
+        return read_records(path)
+    except fetch.UnexpectedContentError:
+        # Only an already-cached file can reach here: new responses are validated before replacement.
         fetch.discard(SOURCE_ID, rel_path)
-        raise fetch.UnexpectedContentError(f"{ds.subarea} → {rel_path}: the office's answer is not JSON ({exc})") from exc
-    if not isinstance(records, list):
-        fetch.discard(SOURCE_ID, rel_path)
-        raise fetch.UnexpectedContentError(
-            f"{ds.subarea} → {rel_path}: the office's answer is not a list of records but {type(records).__name__}")
-    return records
+        raise

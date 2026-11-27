@@ -104,7 +104,9 @@ export function createHashState(opts) {
     if (applying) return;
     if (!force && opts.busy?.()) return schedule(); // wait for the camera to settle
     const core = { ...opts.read(), script: globalThis.document?.documentElement?.dataset?.script ?? parseHash(location.hash).script };
-    const ex = readExtras();
+    // Keep extension keys from the current link until their asynchronously loaded handlers register.
+    const pending = [...params(location.hash)].filter(([key]) => !CORE_KEYS.has(key) && !extras.has(key));
+    const ex = [...pending, ...readExtras()];
     const hash = format(core, ex);
     if (hash === location.hash || (!hash && !location.hash)) {
       lastWritten = location.hash;

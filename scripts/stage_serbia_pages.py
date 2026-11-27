@@ -13,12 +13,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
+from pipeline.package import ASSETS, SOURCE_ZIP, write_source_archive
 # Every file the app loads. It fetches a missing one and shows a note instead of the layer, so a file left out here
 # publishes an app that looks whole and is not: the site layers, the Energy, Traffic and Culture advisors and the
 # whole City View read the last five.
-ASSETS = ("world.json", "cities.json", "states.json", "nation.json", "sources.json", "counties.json",
-          "lenses.json", "lens-values.json", "kim_towns.json", "infrastructure.json", "resources.json",
-          "wonders.json", "citizens.json", "districts.json")
 LENSES = ("density", "pop_change", "natural_increase", "age65", "education", "wages", "unemployment",
           "manufacturing", "commute", "orthodox", "serbs", "life_expectancy", "elevation", "relief", "land_cover")
 
@@ -108,7 +106,6 @@ def stage(web: Path, dest: Path) -> None:
     (dest / "data").mkdir()
     for name in ASSETS:
         shutil.copy2(web / "data" / name, dest / "data" / name)
-    from pipeline.package import SOURCE_ZIP, write_source_archive
     write_source_archive(dest / SOURCE_ZIP)
 
 

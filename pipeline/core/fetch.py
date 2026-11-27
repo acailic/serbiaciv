@@ -107,7 +107,7 @@ def _fetch_to(url: str, tmp: Path, timeout: int, headers: dict | None, expect_bi
 
 def _download_with(
     source_id: str, url: str, rel_path: str, attempt: Callable[[Path], tuple[str, int]], *,
-    force: bool, note: str = "", extra: dict | None = None,
+    force: bool, note: str = "", extra: dict | None = None, validate: Callable[[Path], None] | None = None,
 ) -> Path:
     """Shared body of download() and download_prefix(): cache check, --offline, retries, atomic
     replace and the manifest entry. `attempt(tmp)` writes one try into `tmp` and returns
@@ -123,6 +123,8 @@ def _download_with(
     for n in range(1, RETRIES + 1):
         try:
             sha, size = attempt(tmp)
+            if validate is not None:
+                validate(tmp)
             break
         except BaseException as exc:
             tmp.unlink(missing_ok=True)
@@ -251,6 +253,8 @@ def post(
     *,
     headers: dict | None = None,
     timeout: int = 300,
+    force: bool = False,
+    validate: Callable[[Path], None] | None = None,
 ) -> Path:
     """POST the form `data` to `url` and cache the body at data/raw/<source_id>/<rel_path>,
     otherwise like download(): retries, manifest entry and the --offline rule.
@@ -283,4 +287,4 @@ def post(
             raise ConnectionError(f"short read: got {size} of {length} bytes from {url}")
         return digest.hexdigest(), size
 
-    return _download_with(source_id, url, rel_path, attempt, force=False)
+    return _download_with(source_id, url, rel_path, attempt, force=force, validate=validate)

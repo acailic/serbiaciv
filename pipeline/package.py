@@ -18,6 +18,9 @@ NAME = "serbiaciv"
 DIST = ROOT / "dist"
 SITE = DIST / NAME
 SOURCE_ZIP = f"{NAME}-source.zip"
+ASSETS = ("world.json", "cities.json", "states.json", "nation.json", "sources.json", "counties.json",
+          "lenses.json", "lens-values.json", "kim_towns.json", "infrastructure.json", "resources.json",
+          "wonders.json", "citizens.json", "districts.json")
 
 # What goes into the source zip (relative to ROOT). Downloads, caches and build output are left out: anyone can
 # recreate them with `uv run python -m pipeline all`.
@@ -60,7 +63,8 @@ def write_source_archive(path: Path) -> int:
 
 
 def cmd_package() -> None:
-    missing = [p for p in ("data/cities.json", "data/world.json", "index.html") if not (WEB / p).exists()]
+    required = ("index.html", "js/main.js", "js/i18n/boot.js", "css/style.css", *(f"data/{name}" for name in ASSETS))
+    missing = [p for p in required if not (WEB / p).is_file()]
     if missing:
         raise SystemExit(f"web/ is incomplete ({', '.join(missing)} missing): run `uv run python -m pipeline all` first")
     if SITE.exists():

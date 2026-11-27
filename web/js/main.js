@@ -52,18 +52,22 @@ const SELECT_ANIM_MS = 33; // ~30 fps while a state's border highlight animates
 const isMobile = () => matchMedia("(max-width: 700px)").matches;
 
 async function main() {
-  const [world, cities, nation, lenses, sources, resources, statesData, lensValues, townsData] = await Promise.all([
+  const [world, cities, nation, lenses, sources, resources, statesData, initialLensValues, townsData] = await Promise.all([
     loadJSON("world"), loadJSON("cities"), loadJSON("nation"),
     loadJSON("lenses", true), loadJSON("sources", true), loadJSON("resources", true), loadJSON("states", true),
     loadJSON("lens-values", true), loadJSON("kim_towns", true),
   ]);
+  let lensValues = initialLensValues;
   const lensFile = lenses && Array.isArray(lenses.lenses) ? lenses : { vintage: "", groups: [], lenses: [] };
+  const unavailableLenses = new Set();
+  let lensRecovery = null;
   const resolveLens = createLensLoader(world, () => lensValues);
   await Promise.all(lensFile.lenses.map(async (lens) => {
     try { lens.values = await resolveLens(lens); }
     catch (error) {
       console.warn(`Sočivo ${lens.id}: ${error.message}`);
       lens.values = Array(world.owner.length).fill(null);
+      if (lens.value_source?.kind === "municipality") unavailableLenses.add(lens);
     }
   }));
   const towns = Array.isArray(townsData?.towns) ? townsData.towns : [];
@@ -82,6 +86,38 @@ async function main() {
   const panelEl = document.getElementById("city-panel");
   // The extension API object; filled in under "extension API" below, before anything can run against it.
   const app = {};
+
+  // A failed initial request is retryable. Resolve every affected lens together so City View and advisors recover too.
+  function retryLensData() {
+    if (!unavailableLenses.size) return Promise.resolve(lensValues);
+    if (lensRecovery) return lensRecovery;
+    lensRecovery = (async () => {
+      lensValues = await loadJSON("lens-values");
+      for (const lens of [...unavailableLenses]) {
+        delete lens.values;
+        try {
+          lens.values = await resolveLens(lens);
+          unavailableLenses.delete(lens);
+        } catch (error) {
+          lens.values = Array(world.owner.length).fill(null);
+          throw error;
+        }
+      }
+      app.data["lens-values"] = lensValues;
+      dataLoads.set("lens-values", Promise.resolve(lensValues));
+      events.emit("data", { name: "lens-values", data: lensValues });
+      dock.invalidate();
+      if (state.lens) {
+        applyLens(w, state.lens, state.band);
+        dock.render(state.lens, state.band);
+        rebuildMinimap();
+      }
+      cache.key = null;
+      requestDraw();
+      return lensValues;
+    })().finally(() => { lensRecovery = null; });
+    return lensRecovery;
+  }
   const modes = createModes(app);
   events.on("mode", () => hideTooltip()); // a stale tooltip must not float over a mode's panels
   let ui = null;
@@ -526,6 +562,9 @@ async function main() {
     requestDraw();
     url.schedule();
     if (changed) events.emit("lens", lens);
+    if (unavailableLenses.has(lens)) {
+      retryLensData().catch(() => toast("Podaci sočiva nisu učitani. Izaberite sočivo ponovo za novi pokušaj."));
+    }
   }
 
   function setBand(band) {
@@ -823,7 +862,7 @@ async function main() {
     onLens: (id) => {
       const lens = lensById.get(id);
       if (!lens) return;
-      if (lens !== state.lens) setLens(lens);
+      if (lens !== state.lens || unavailableLenses.has(lens)) setLens(lens);
       dock.remember(lens.id);
     },
   });
@@ -1152,10 +1191,11 @@ async function main() {
   // The `app` object handed to ext/*/install(app) and exposed as window.__app. See the README of this API in
   // app/api.js and the summary below; names here are a stable contract with the extensions in ext/.
   const dataLoads = new Map(); // name → Promise<data | null>
-  dataLoads.set("lens-values", Promise.resolve(lensValues));
+  if (lensValues && !unavailableLenses.size) dataLoads.set("lens-values", Promise.resolve(lensValues));
   dataLoads.set("kim_towns", Promise.resolve(townsData));
   function loadData(name) {
     if (!DATA_NAME.test(String(name))) return Promise.reject(new Error(`loadData: bad name "${name}"`));
+    if (name === "lens-values" && unavailableLenses.size) return retryLensData();
     if (!dataLoads.has(name)) {
       dataLoads.set(name, loadJSON(name, true).then((d) => {
         app.data[name] = d ?? null;
@@ -1189,6 +1229,7 @@ async function main() {
     data: { world, cities, states, nation, lenses: lensFile, resources, sources: sources || [], counties: null,
       "lens-values": lensValues, kim_towns: townsData },
     loadData,
+    ensureLensData: retryLensData,
     loadCounties: () => loadData("counties"),
     w, cam, state, cityById, lensById,
     // drawing
@@ -1235,7 +1276,7 @@ async function main() {
     clearSelection,
     setLens(ref) {
       const lens = ref == null ? null : typeof ref === "string" ? lensById.get(ref) || null : ref;
-      if (lens !== state.lens) setLens(lens);
+      if (lens !== state.lens || unavailableLenses.has(lens)) setLens(lens);
       // A mode's own lens (an advisor colouring the map) shows on the lens button but does not take a quick slot.
       if (lens && !modes.mode) dock.remember(lens.id);
     },
