@@ -6,6 +6,12 @@
 
 ![Preview of the serbiaciv map, showing Serbian cities and terrain](web/og-image.png)
 
+### Watch the trailer
+
+[![Animated preview of the SerbiaCiv trailer](docs/trailer-preview.gif)](docs/trailer.mp4)
+
+[Watch or download the 30-second trailer with sound](docs/trailer.mp4).
+
 The project is a Serbia-focused fork of [usaciv](https://karpathy.ai/usaciv) by Andrej Karpathy. The original project is MIT-licensed; see [LICENSE](LICENSE).
 
 ## Explore
