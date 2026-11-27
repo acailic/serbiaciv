@@ -2,7 +2,8 @@
 
 Each source cites only the raw files its latest process() used (interim "files"),
 or every manifest entry if it did not say. `curated` marks a source read by hand:
-it fetched nothing, so its homepage is the citation and `files` is empty.
+it fetched nothing, so its homepage is the citation and `files` is empty –
+unless its pages were downloaded into a manifest, as the territory tree's were.
 """
 
 from ..core.fetch import read_manifest
