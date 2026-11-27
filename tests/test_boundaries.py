@@ -8,7 +8,7 @@ from pathlib import Path
 
 import shapefile
 
-from pipeline.core import shp
+from pipeline.core import shp, srb
 from pipeline.data import country_names
 from pipeline.sources import boundaries
 
@@ -150,6 +150,15 @@ class CountryNamesTest(unittest.TestCase):
             "GRC": "Grčka", "HUN": "Mađarska", "ITA": "Italija", "MNE": "Crna Gora", "MKD": "Severna Makedonija",
             "ROU": "Rumunija", "SVK": "Slovačka", "SVN": "Slovenija", "TUR": "Turska", "UKR": "Ukrajina",
         })
+
+
+class ScaleTest(unittest.TestCase):
+    def test_okruzi_come_from_the_finest_nuts_file(self):
+        """The 1:20 M file draws a district border with a vertex every 8 km, about one hex: against the Geodetic
+        Authority's register it put 3.6 % of Serbia's hexes in a neighbouring district and 24 on the wrong side of
+        the state border; 01M is the finest GISCO publishes."""
+        self.assertEqual(boundaries.NUTS, "NUTS_RG_01M_2024_4326_LEVL_{level}.geojson")
+        self.assertIn("/NUTS_RG_01M_2024_4326_LEVL_{level}.geojson", srb.GISCO_NUTS_URL)
 
 
 if __name__ == "__main__":

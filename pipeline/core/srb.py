@@ -170,7 +170,7 @@ CENSUS_FILES = {
     "commute": ("31441", "dnevne_migracije_aktivnog_stanovnistva_koje_obavlja_zanimanje_po_polu_i_tipu_naselja.xlsx"),
 }
 
-GISCO_NUTS_URL = "https://gisco-services.ec.europa.eu/distribution/v2/nuts/geojson/NUTS_RG_20M_2024_4326_LEVL_{level}.geojson"
+GISCO_NUTS_URL = "https://gisco-services.ec.europa.eu/distribution/v2/nuts/geojson/NUTS_RG_01M_2024_4326_LEVL_{level}.geojson"
 GISCO_LAU_URL = "https://gisco-services.ec.europa.eu/distribution/v2/lau/download/ref-lau-2024-01m.shp.zip"
 GEOBOUNDARIES_XKX_ADM2 = (
     "https://media.githubusercontent.com/media/wmgeolab/geoBoundaries/main/releaseData/gbOpen/XKX/ADM2/"

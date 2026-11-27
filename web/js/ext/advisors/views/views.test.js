@@ -222,7 +222,7 @@ test("explorer: presets and short headers exist in the real Serbian data", async
   assert.ok(kc.every((r) => r.v.population === null && r.v.wage_net === null));
   assert.equal(d.levels.states.byKey.get("RS231").v.population, null); // Kosovski okrug
   assert.equal(d.levels.counties.byKey.get("90042").v.population, null); // Gnjilane
-  assert.equal(d.countiesOffMap, 7);
+  assert.equal(d.countiesOffMap, 6); // smaller than a hex, so none of the fitted grid's hexes is theirs
   assert.ok(d.levels.counties.rows.filter((r) => !r.kim).every((r) => typeof r.v.okrug === "string" && r.v.okrug.length > 0)); // parent okrug column
   assert.ok(d.levels.metros.rows.every((r) => typeof r.v.okrug === "string" && r.v.okrug.length > 0));
 });

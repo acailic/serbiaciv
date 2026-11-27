@@ -91,7 +91,7 @@ tests/       unittest suite
 
 **Towns.** Upstream's gate rejects a city without population, so Kosovo's towns (Priština, Prizren, Peć, Kosovska Mitrovica, Gnjilane, Uroševac, Đakovica, Podujevo and the rest) are a separate small file, `kim_towns.json`, drawn by a static layer as named town markers without banners. They are searchable. Names come from OpenStreetMap `name:sr-Latn` tags.
 
-**Geometry, and why it is stitched.** RZS publishes codes and names for these units but no geometry, and no open publisher draws Serbia's five districts. They are built from the 38 Kosovo municipal polygons in geoBoundaries `XKX ADM2` (OpenStreetMap, ODbL, total 10,888 km²):
+**Geometry, and why it is stitched.** RZS publishes codes and names for these units but no geometry, and no open publisher draws Serbia's five districts (the Republic Geodetic Authority's Register of Spatial Units has them, but only behind an RGZ ID login, so it is not fetched). They are built from the 38 Kosovo municipal polygons in geoBoundaries `XKX ADM2` (OpenStreetMap, ODbL, total 10,888 km²):
 
 1. Each of the 38 polygons is assigned to one of RZS's 29 municipalities in a reviewed table, `pipeline/data/kim_stitch.csv`: polygon name → RZS code → basis ("same name" or "split from", with the year).
 2. Municipalities are grouped into the five oblasts by RZS codes RS231–RS235.
@@ -155,7 +155,7 @@ All were reached without a key or account on 2026-11-26. "Verified" means a file
 | Popis 2022 Excel index, `popis2022.stat.gov.rs/sr-Latn/rezultati/excel/` | RZS · reuse with attribution | Population, age and sex, education, ethnicity, religion, economic activity, industry, occupation, commute, migration, households, dwellings | settlement, municipality | Verified, 65 of 66 files |
 | RZS database JSON export, `data.stat.gov.rs` | RZS · reuse with attribution | Population estimates 1991–2025, births and deaths, migration, wages, employment by municipality × NACE, life expectancy, land use | municipality | Verified |
 | `nama_10r_3gdp`, `nama_10r_2gdp` | Eurostat · CC BY 4.0 | GDP by district (2022 final, 2023 provisional) and by region | NUTS-3, NUTS-2 | Verified |
-| GISCO NUTS 2024 `NUTS_RG_20M_2024_4326_LEVL_3` / `LEVL_2` | Eurostat · CC BY 4.0 | 25 districts and 4 regions, names in Serbian Cyrillic | district, region | Verified |
+| GISCO NUTS 2024 `NUTS_RG_01M_2024_4326_LEVL_3` / `LEVL_2` | Eurostat · CC BY 4.0 | 25 districts and 4 regions at 1:1 M, names in Serbian Cyrillic | district, region | Verified |
 | GISCO LAU 2024 `ref-lau-2024-01m.shp.zip` | Eurostat · CC BY 4.0 | 168 municipal polygons carrying RZS 5-digit codes, 77,481 km² | municipality | Verified |
 | geoBoundaries `XKX ADM2` | geoBoundaries · ODbL | Kosovo's 38 municipal polygons | municipality | Verified |
 | Natural Earth 10m | Public domain | Neighbouring countries, roads, railroads | — | Verified |
@@ -171,7 +171,7 @@ All were reached without a key or account on 2026-11-26. "Verified" means a file
 
 **Fetch rule.** RZS's servers return `403` to curl's default user agent and `200` to a descriptive one. The fetcher always sends `serbiaciv/<version> (…)` and makes at most one request per second to RZS.
 
-**Gaps, and the substitute used:** no income, rent or home value below region level (wages and census housing stand in); no GDP below district level (a city's Gold is its district's GDP scaled by its share of jobs, marked ≈ with the rule printed); no registered-unemployed count by municipality (census 2022 unemployed); no inter-city trade flows (the trade layer is not shipped); no visitor numbers for parks (ranked by area); no open military statistics (no military advisor).
+**Gaps, and the substitute used:** no income, rent or home value below region level (wages and census housing stand in); no GDP below district level (a city's Gold is its district's GDP scaled by its share of jobs, marked ≈ with the rule printed); no registered-unemployed count by municipality (census 2022 unemployed); no inter-city trade flows (the trade layer is not shipped); no visitor numbers for parks (ranked by area); no open military statistics (no military advisor); no open cadastral boundaries (the okruzi are Eurostat's 1:1 M generalisation, a vertex every 470 m: measured against a public copy of the Republic Geodetic Authority's 2019 dump of the register of spatial units, 0.25 % of Serbia's hexes outside Kosovo and Metohija land in a neighbouring district and 3 sit on the wrong side of the state border; the 1:20 M file used before put 3.6 % in a neighbouring district and 24 on the wrong side. OpenStreetMap's district lines agree with that register at every one of 1,198 such hexes, but they carry no register code and are ODbL, so they are not fetched either).
 
 ## 8. Data model
 

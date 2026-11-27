@@ -6,6 +6,11 @@ against them (the world builder), not here. The ids are the ones every other sou
 oblasti and regioni, the Statistical Office's 5-digit codes for the municipalities (GISCO writes them ``RS_70017``).
 Kosovo and Metohija is not in these files; the kim source draws it.
 
+The oblasti and regioni are read from GISCO's 1:1 M file, the finest it publishes. The 1:20 M file the project began
+with draws a district border with a vertex every 8 km, about one hex: measured against a public copy of the Republic
+Geodetic Authority's 2019 dump of the register of spatial units, it put 3.6 % of Serbia's hexes outside Kosovo and
+Metohija in a neighbouring district and 24 on the wrong side of the state border; this file puts 0.25 % and 3.
+
 A neighbouring country is kept only where it can be seen: the rings that touch the frame, the Republic's bounding
 box grown by the map's margin.
 """
@@ -18,7 +23,7 @@ from ..core import geo, srb, shp
 from ..core.source import Source, SourceInfo
 from ..data import country_names
 
-NUTS = "NUTS_RG_20M_2024_4326_LEVL_{level}.geojson"
+NUTS = "NUTS_RG_01M_2024_4326_LEVL_{level}.geojson"  # same scale as the LAU file below, see the module docstring
 LAU_ZIP = "ref-lau-2024-01m.shp.zip"
 LAU_MEMBER = "LAU_RG_01M_2024_4326.shp.zip/LAU_RG_01M_2024_4326"  # the 4326 (lon/lat) of the three nested shapefiles
 COUNTRIES_ZIP = "ne_10m_admin_0_countries.zip"
@@ -91,7 +96,7 @@ class Boundaries(Source):
         publisher="Eurostat (GISCO), Natural Earth",
         homepage="https://ec.europa.eu/eurostat/web/gisco",
         license="© Evropska unija, 1995–2026, CC BY 4.0; Natural Earth: javni domen",
-        description="NUTS 2024 (1:20 M) za 25 oblasti i 4 regiona, LAU 2024 (1:1 M) za 168 opština Srbije bez Kosova i "
+        description="NUTS 2024 (1:1 M) za 25 oblasti i 4 regiona, LAU 2024 (1:1 M) za 168 opština Srbije bez Kosova i "
                     "Metohije (koji donosi izvor kim) i Natural Earth 1:10m za petnaest susednih država koje dodiruju "
                     "okvir karte.",
         used_for=["Kojoj oblasti i opštini pripada heks", "Granice oblasti, regiona i opština na mapi", "Susedne države na mapi"],
@@ -115,8 +120,8 @@ class Boundaries(Source):
               f"{len(countries)} countries")
         return {
             "vintage": {
-                "oblasti": "Eurostat GISCO, NUTS 2024 (1:20 M)",
-                "regioni": "Eurostat GISCO, NUTS 2024 (1:20 M)",
+                "oblasti": "Eurostat GISCO, NUTS 2024 (1:1 M)",
+                "regioni": "Eurostat GISCO, NUTS 2024 (1:1 M)",
                 "municipalities": "Eurostat GISCO, LAU 2024 (1:1 M)",
                 "countries": "Natural Earth 1:10m",
             },
