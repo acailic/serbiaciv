@@ -9,7 +9,6 @@ import json
 import time
 import urllib.error
 import urllib.parse
-from pathlib import Path
 
 from .srtext import fold_key
 

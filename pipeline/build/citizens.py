@@ -20,7 +20,7 @@ from __future__ import annotations
 
 import json
 
-from ..core import srb, store, territory
+from ..core import srb, store
 from ..sources.census import Census, _group
 from ..core import census_xlsx
 

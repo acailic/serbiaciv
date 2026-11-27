@@ -11,7 +11,6 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
-from unittest import mock
 
 from pipeline import check
 from pipeline.core import srb

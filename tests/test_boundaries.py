@@ -8,7 +8,7 @@ from pathlib import Path
 
 import shapefile
 
-from pipeline.core import geo, shp
+from pipeline.core import shp
 from pipeline.data import country_names
 from pipeline.sources import boundaries
 
