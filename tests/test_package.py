@@ -1,6 +1,7 @@
 """The deploy package must reject a site that cannot start."""
 import tempfile
 import unittest
+import zipfile
 from pathlib import Path
 from unittest import mock
 
@@ -22,3 +23,17 @@ class PackageTest(unittest.TestCase):
                 with self.assertRaisesRegex(SystemExit, "nation.json"):
                     package.cmd_package()
             self.assertTrue((site / "keep.txt").exists())
+
+    def test_source_archive_leaves_out_the_media_under_docs(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            for rel in ("docs/trailer.mp4", "docs/images/hero.jpg", "docs/preview.gif", "docs/GLOSSARY.md", "pipeline/core/x.py",
+                        "web/data/cities.json"):
+                p = root / rel
+                p.parent.mkdir(parents=True, exist_ok=True)
+                p.write_bytes(b"x" * 10)
+            out = root / "serbiaciv-source.zip"
+            with mock.patch.object(package, "ROOT", root):
+                package.write_source_archive(out)
+            names = zipfile.ZipFile(out).namelist()
+            self.assertEqual(sorted(names), ["serbiaciv/docs/GLOSSARY.md", "serbiaciv/pipeline/core/x.py", "serbiaciv/web/data/cities.json"])

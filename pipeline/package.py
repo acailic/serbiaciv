@@ -24,9 +24,13 @@ ASSETS = ("world.json", "cities.json", "states.json", "nation.json", "sources.js
 
 # What goes into the source zip (relative to ROOT). Downloads, caches and build output are left out: anyone can
 # recreate them with `uv run python -m pipeline all`.
-SOURCE_ITEMS = ["README.md", "LICENSE", "pyproject.toml", "uv.lock", ".gitignore", "docs", "pipeline", "scripts", "tests", "web"]
+SOURCE_ITEMS = ["README.md", "CONTRIBUTING.md", "CITATION.cff", "LICENSE", "pyproject.toml", "uv.lock", ".gitignore", "docs", "pipeline",
+                "scripts", "tests", "web"]
 SKIP_NAMES = {"__pycache__", ".DS_Store"}
 SKIP_SUFFIXES = {".pyc", ".part"}
+# The trailer and the gallery pictures under docs/ are in the repository for its README pages; they are not source, and
+# the source archive is what the site serves for download.
+DOCS_MEDIA = {".gif", ".jpg", ".jpeg", ".mp4", ".webm"}
 # Dev-only pages (art gallery, trailer maker) ship in the source zip but not on the public site.
 SITE_SKIP_DIRS = {"dev"}
 
@@ -40,8 +44,12 @@ def _files(base: Path, rel_items):
             yield p
         elif p.is_dir():
             for f in sorted(p.rglob("*")):
-                if f.is_file() and not (SKIP_NAMES & set(f.relative_to(base).parts)) and f.suffix not in SKIP_SUFFIXES:
-                    yield f
+                rel = f.relative_to(base)
+                if not f.is_file() or (SKIP_NAMES & set(rel.parts)) or f.suffix in SKIP_SUFFIXES:
+                    continue
+                if rel.parts[0] == "docs" and f.suffix.lower() in DOCS_MEDIA:
+                    continue
+                yield f
 
 
 def _zip(path: Path, files, base: Path, prefix: str) -> int:
