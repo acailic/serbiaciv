@@ -20,7 +20,7 @@ from collections import Counter
 from pathlib import Path
 
 from ..core.store import load_interim, write_web
-from .sites import DATA, Placer, land_cells, read_sites, number
+from .sites import Placer, land_cells, read_sites, number
 
 REQUIRES = ["_world", "_cities"]
 PRODUCES = ["resources.json"]
