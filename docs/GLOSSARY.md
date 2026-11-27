@@ -96,7 +96,7 @@ Statistical Office of Serbia (RZS).
 ## Names that stay Latin in both scripts
 
 Foreign publishers, products and acronyms: Eurostat, Copernicus, ESA, ESA WorldCover, GISCO, Natural Earth,
-OpenStreetMap, geoBoundaries, OurAirports, Overpass, USGS, Wikidata, WRI, UNESCO, NACE, GitHub, GLO-30, COG,
+OpenStreetMap, geoBoundaries, OurAirports, Overpass, USGS, Wikidata, WRI, UNESCO, NACE, GitHub, GLO-10, COG,
 GeoJSON, AWS. Acronyms of Serbian names follow the script: RZS → РЗС, BDP → БДП, NBS → НБС.
 
 ## Numbers

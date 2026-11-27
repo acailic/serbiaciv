@@ -61,7 +61,7 @@ tests/       unittest suite
 
 - **Grid:** pointy-top hexes, 5 km from centre to vertex (flat-to-flat 8.66 km, area 64.95 km²). About 1,360 land tiles, against about 4,900 for the USA. The total grid (90 × 120 = 10,800 cells with a 200 km margin) is the same size as upstream's 10,530, so every cache and zoom assumption in the engine holds.
 - **Projection:** Albers equal-area, standard parallels 42.5° and 45.5°, central meridian 21.0°, latitude of origin 44.0°.
-- **Elevation:** Copernicus GLO-30. Each hex stores mean, maximum and range in metres, derived using a documented pixel-inclusion and nodata rule and checked against source-resolution samples. Do not infer source-pixel extrema from averages of coarser cells.
+- **Elevation:** Copernicus GLO-10. (Status 2026-11-27: the plan named GLO-30, but the tiles the pipeline downloads are the 1-arc-second `Copernicus_DSM_COG_10` COGs, 3600 × 3600 pixels a degree, so every label now says GLO-10, 10 m, as the data is.) Each hex stores mean, maximum and range in metres, derived using a documented pixel-inclusion and nodata rule and checked against source-resolution samples. Do not infer source-pixel extrema from averages of coarser cells.
 - **Relief classes** use the elevation range inside the hex (maximum minus minimum), because upstream's standard-deviation rule was calibrated on 25 km hexes and on a 9 km elevation grid: flat under 60 m, hills 60–300 m, mountains over 300 m, and "peaks" when the mean is at least 1,300 m. The four numbers live in one constants block and the rule text is written into `world.json`. The range itself is stored per hex as a new field, `elev_range`, and `DATA_CONTRACTS.md` gains it.
 - **Land cover:** ESA WorldCover 2021. Tree cover → forest, shrubland → shrub, grassland → pasture ("livade i pašnjaci"), cropland → crop, built-up → developed, wetland → wetland.
 - **Water:** a hex is a lake tile when its centre lies inside a lake or reservoir polygon of at least 40 km². In practice only the Iron Gates reservoir qualifies at this hex size. Smaller lakes and narrow reservoirs stay land with their river drawn through, which is how upstream already treats narrow reservoirs; it has no art for a lake on a land tile. Serbia is landlocked, so there is no ocean and no bathymetry.
@@ -159,7 +159,7 @@ All were reached without a key or account on 2026-11-26. "Verified" means a file
 | GISCO LAU 2024 `ref-lau-2024-01m.shp.zip` | Eurostat · CC BY 4.0 | 168 municipal polygons carrying RZS 5-digit codes, 77,481 km² | municipality | Verified |
 | geoBoundaries `XKX ADM2` | geoBoundaries · ODbL | Kosovo's 38 municipal polygons | municipality | Verified |
 | Natural Earth 10m | Public domain | Neighbouring countries, roads, railroads | — | Verified |
-| Copernicus GLO-30, AWS Open Data | Copernicus · free with attribution | Elevation, 35 tiles, 1.5 GB | 30 m | Verified |
+| Copernicus GLO-10, AWS Open Data | Copernicus · free with attribution | Elevation, 24 tiles, 1.0 GB (measured) | 10 m | Verified |
 | ESA WorldCover 2021, AWS Open Data | ESA · CC BY 4.0 | Land cover; tile count and download size must be measured for the selected territory | 10 m | Source verified; coverage and transfer pending |
 | OpenStreetMap via Overpass | OSM · ODbL | Power plants (358 with capacity in the region), mines, ports, lakes, rivers, place nodes | site | Verified |
 | WRI Global Power Plant Database | WRI · CC BY 4.0 | Cross-check for plants over 100 MW | plant | Verified, 12 Serbia rows |

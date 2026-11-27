@@ -233,7 +233,7 @@ def year_in(text: str) -> str | None:
 
 
 def _source(name: str, edition: str | None) -> str:
-    """'Copernicus GLO-30, izdanje 2021' – or the edition alone when it already names the source."""
+    """'Copernicus GLO-10, izdanje 2021' – or the edition alone when it already names the source."""
     if not edition:
         return name
     return edition if name.lower() in edition.lower() else f"{name}, izdanje {edition}"
@@ -266,7 +266,7 @@ def vintage_text(rzs: dict, census: dict) -> str:
 def _notes(w: dict) -> dict[str, str]:
     """Every lens's note: the caveat the legend always shows, naming the year and the source it was computed from."""
     popis = f"{w['census']}, Republički zavod za statistiku"
-    dem = _source("Copernicus GLO-30", w["dem"])
+    dem = _source("Copernicus GLO-10", w["dem"])
     worldcover = _source("ESA WorldCover", w["landcover"])
     return {
         "density": f"Procena broja stanovnika {RZS} za {w['latest']}. godinu, podeljena površinom opštine.{NO_KOSOVO}",

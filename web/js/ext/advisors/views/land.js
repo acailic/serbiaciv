@@ -158,7 +158,7 @@ export function mount(ctx) {
   drawFarm();
 
   // --- terrain -----------------------------------------------------------------------------------------------------
-  const rBody = section(el, { title: "Teren", note: "Koliko hekseva svakog okruga je ravnica, koliko brdovit teren, koliko planine i vrhovi (Copernicus GLO-30). Kliknite na red da otvorite okrug.", open: false });
+  const rBody = section(el, { title: "Teren", note: "Koliko hekseva svakog okruga je ravnica, koliko brdovit teren, koliko planine i vrhovi (Copernicus GLO-10). Kliknite na red da otvorite okrug.", open: false });
   const rHost = document.createElement("div");
   rBody.appendChild(rHost);
   rHost.insertAdjacentHTML("beforeend", swatchLegend(RELIEF));

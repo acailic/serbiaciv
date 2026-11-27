@@ -19,7 +19,7 @@ const HARD_CASES = {
   Hrvatska: "Хрватска", Zvečan: "Звечан", "Kosovsko-mitrovačka": "Косовско-митровачка", "Severna Makedonija": "Северна Македонија",
 };
 const TWENTY_NAMES = [
-  "AWS", "COG", "Copernicus", "ESA", "ESA WorldCover", "Eurostat", "GISCO", "GLO-30", "GeoJSON", "GitHub", "NACE",
+  "AWS", "COG", "Copernicus", "ESA", "ESA WorldCover", "Eurostat", "GISCO", "GLO-10", "GeoJSON", "GitHub", "NACE",
   "Natural Earth", "OpenStreetMap", "OurAirports", "Overpass", "UNESCO", "USGS", "Wikidata", "WRI", "geoBoundaries",
   // licenses, publishers and product names that web/data prints
   "CC BY 4.0", "CC BY-SA 4.0", "Copernicus DEM", "Geofabrik", "Minerals Yearbook", "MIT", "ODbL", "Open Database License",

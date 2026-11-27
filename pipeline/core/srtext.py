@@ -37,7 +37,7 @@ _WORD = re.compile(r"[^\W\d_]+", re.UNICODE)  # a run of letters, any script
 # Names written in Latin in both scripts: foreign publishers, products, licenses and acronyms. Matched as whole words.
 PROTECTED = (
     "AWS", "CC BY 4.0", "CC BY-SA 4.0", "COG", "Copernicus", "Copernicus DEM", "ESA", "ESA WorldCover", "Eurostat", "Geofabrik",
-    "GISCO", "GLO-30", "GeoJSON", "GitHub", "Minerals Yearbook", "MIT", "NACE", "Natural Earth", "ODbL", "Open Database License",
+    "GISCO", "GLO-10", "GeoJSON", "GitHub", "Minerals Yearbook", "MIT", "NACE", "Natural Earth", "ODbL", "Open Database License",
     "OpenStreetMap", "OpenStreetMap contributors", "OurAirports", "Overpass", "UNESCO", "USGS", "U.S. Geological Survey",
     "Wikidata", "WRI", "XKX", "geoBoundaries", "public domain", "serbiaciv",
 )

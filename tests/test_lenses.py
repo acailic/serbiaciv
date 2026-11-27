@@ -117,7 +117,7 @@ CITIES = {  # what Task 6's cities builder writes for the non-Kosovo units
     },
 }
 # The land lenses take the edition they cite from these payload vintages.
-EDITIONS = {"dem": "Copernicus GLO-30, 2021", "landcover": "ESA WorldCover v200, 2021"}
+EDITIONS = {"dem": "Copernicus GLO-10, 2021", "landcover": "ESA WorldCover v200, 2021"}
 
 
 def fixture() -> dict:

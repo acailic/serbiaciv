@@ -41,7 +41,7 @@ export function initPedia(data) {
       <h4>Kako je napravljena</h4>
       <p>Srbija, sa Kosovom i Metohijom, projektovana je Alberskom jednakopovršinskom projekcijom i isečena na
       ${data.world.grid.cols}×${data.world.grid.rows} heksova, svaki po ${data.world.grid.radius * 2} km od ugla do ugla. Svaki heks pripada
-      okrugu i opštini na čijem se središtu nalazi. Teren dolazi iz uzoraka nadmorske visine (Copernicus GLO-30), a boja
+      okrugu i opštini na čijem se središtu nalazi. Teren dolazi iz uzoraka nadmorske visine (Copernicus GLO-10), a boja
       zemljišta iz pokrivača zemljišta (ESA WorldCover) unutar svakog heksa.</p>
       <p>Kosovo i Metohija je u okviru karte: njegov teren, reke i granice opština crtaju se iz stvarnih podataka. Republički
       zavod za statistiku i Eurostat ne objavljuju statistiku za njegove okruge, pa tamo gde drugi okruzi imaju brojeve stoji
@@ -82,7 +82,7 @@ export function initPedia(data) {
       const row = (x) => `<tr><td class="nm">${x.color ? `<span class="swatch" style="background:${esc(x.color)}"></span>` : ""}${COVER_ICON[x.key] ? icon(COVER_ICON[x.key], "", { size: 15 }) + " " : ""}<b>${esc(x.name)}</b></td><td>${esc(x.rule || "")}</td></tr>`;
       return `
       ${h2("terrain", "🗺️", "Teren")}
-      <p>Svaki heks ima srednju nadmorsku visinu uzoraka Copernicus GLO-30 (30 m) unutar njega. Reljef dolazi iz srednje
+      <p>Svaki heks ima srednju nadmorsku visinu uzoraka Copernicus GLO-10 (10 m) unutar njega. Reljef dolazi iz srednje
       visine i hrapavosti (standardne devijacije) tih uzoraka; senčenje dolazi iz razlika visine sa susednim heksima, pri
       svetlu sa severozapada.</p>
       <h4>${icon("l-forest", "🌲", { size: 16 })} Pokrivač zemljišta</h4>

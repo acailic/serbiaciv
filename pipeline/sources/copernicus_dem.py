@@ -1,4 +1,8 @@
-"""Copernicus GLO-30: Serbia's elevation on the shared lattice, as whole metres."""
+"""Copernicus GLO-10: Serbia's elevation on the shared lattice, as whole metres.
+
+The tiles are the 1-arc-second `Copernicus_DSM_COG_10` COGs (3600 × 3600 pixels a degree), i.e. the 10 m product;
+the port labelled them GLO-30 until a review measured the pixels.
+"""
 
 from __future__ import annotations
 
@@ -15,11 +19,11 @@ def tile_url(tile: str) -> str:
 class CopernicusDEM(Source):
     info = SourceInfo(
         id="dem",
-        title="Copernicus GLO-30, digitalni model reliefa (30 m)",
+        title="Copernicus GLO-10, digitalni model reliefa (10 m)",
         publisher="Copernicus, program Evropske unije",
         homepage="https://spacedata.copernicus.eu/c/copernicus-dem/",
         license="Besplatno korišćenje uz navođenje izvora (Copernicus)",
-        description="Nadmorska visina Srbije na 30 m; izvorni pikseli koriste se za teren svakog heksa.",
+        description="Nadmorska visina Srbije na 10 m; izvorni pikseli koriste se za teren svakog heksa.",
         used_for=["Teren"],
     )
 
@@ -44,4 +48,4 @@ class CopernicusDEM(Source):
         selected = terrain.required_tiles("dem", terrain.territory_features())
         files = {tile: tile_url(tile).rsplit("/", 1)[1] for tile in selected}
         tiles = terrain.verified_tiles(self.id, files)
-        return {"vintage": "Copernicus DEM GLO-30", "tiles": tiles, "_files": list(files.values())}
+        return {"vintage": "Copernicus DEM GLO-10", "tiles": tiles, "_files": list(files.values())}
