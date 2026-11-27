@@ -2,7 +2,7 @@ id,name,type,okrug,lon,lat,value,unit,year,detail,source
 pp-tent-a,TE Nikola Tesla A,coal_plant,,20.0017,44.6517,1594,MW,2024,Obrenovac; 6 blokova na lignit; neto snaga; proizvodnja 7.245 GWh (2024),EPS-TR2024
 pp-tent-b,TE Nikola Tesla B,coal_plant,,19.9750,44.6330,1220,MW,2024,Obrenovac (Skela); 2 bloka na lignit; neto snaga; proizvodnja 7.156 GWh (2024),EPS-TR2024
 pp-kolubara,TE Kolubara,coal_plant,,20.2864,44.4289,216,MW,2024,Veliki Crljeni; 4 bloka na lignit; neto snaga; proizvodnja 304 GWh (2024),EPS-TR2024
-pp-morava,TE Morava,coal_plant,,21.1100,44.2130,108,MW,2024,Svilajnac; 1 blok na lignit; neto snaga; proizvodnja 276 GWh (2024),EPS-TR2024
+pp-morava,TE Morava,coal_plant,,21.1619,44.2256,108,MW,2024,Svilajnac; 1 blok na lignit; neto snaga; proizvodnja 276 GWh (2024),EPS-TR2024
 pp-kostolac-a,TE Kostolac A,coal_plant,,21.1680,44.7400,281,MW,2024,Kostolac; 2 bloka na lignit; neto snaga; proizvodnja 1.934 GWh (2024),EPS-TR2024
 pp-kostolac-b,TE Kostolac B,coal_plant,,21.1950,44.7750,941,MW,2024,Kostolac (Drmno); 3 bloka na lignit (B3 od 2024); neto snaga; proizvodnja 4.359 GWh (2024),EPS-TR2024
 pp-te-to-novi-sad,TE-TO Novi Sad,gas_plant,RS123,19.8430,45.2520,208,MW,2024,gasna elektrana-toplana EPS (Panonske TE-TO); neto snaga; proizvodnja 337 GWh (2024),EPS-TR2024

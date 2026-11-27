@@ -123,7 +123,7 @@ class WondersTest(unittest.TestCase):
         self.assertEqual({w["metrics"]["inscribed"] for w in self.doc["wonders"] if w["rule"] == "unesco_site"},
                          {1979, 1986, 2004, 2006, 2007, 2016})
         self.assertEqual([w["short"] for w in self.doc["wonders"] if w["rule"] == "park_unit"],
-                         ["Golija", "Uvac", "Đavolja varoš", "Deliblatska peščara"])  # by area; no area = last
+                         ["Golija", "Deliblatska peščara", "Uvac", "Đavolja varoš"])  # by area
 
     def test_every_item_on_serbian_land_in_its_okrug_and_the_city_of_its_county(self):
         owner, water, county = self.world["owner"], self.world["water"], self.world["county"]
@@ -168,7 +168,7 @@ class WondersTest(unittest.TestCase):
                 self.assertNotEqual(v, 0, (w["id"], key))
         parks = [w for w in self.doc["wonders"] if w["rule"] in ("national_park", "park_unit")]
         self.assertTrue(all(w["metrics"]["visits"] is None for w in parks))
-        self.assertIsNone(self.by_name["Park prirode Deliblatska peščara"]["metrics"]["area_km2"])
+        self.assertEqual(self.by_name["Specijalni rezervat prirode Deliblatska peščara"]["metrics"]["area_km2"], 348.29)
         self.assertEqual(self.by_name["Đavolja varoš"]["metrics"]["designated"], 1959)
         unis = [w for w in self.doc["wonders"] if w["rule"] == "research_university"]
         self.assertTrue(all(w["metrics"]["rd_usd"] is None for w in unis))
