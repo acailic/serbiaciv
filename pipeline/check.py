@@ -1010,9 +1010,10 @@ def quality_density(r: Report, ctx: dict, docs: dict, density: list | None) -> N
                    f"(×{sigma / people:.2f}; hexes outsize small municipalities)")
     off = [t for t in on_map if t["density"] is not None and t["population"] and t["land_km2"]
            and abs(t["density"] * t["land_km2"] - t["population"]) > DENSITY_TOLERANCE * t["population"]]
+    sample = _sample(f'{t["name"]} {t["density"]} × {t["land_km2"]} vs {t["population"]}' for t in off) if off else ""
     (r.warn if off else r.ok)(
         f"density × land_km2 against the population: {len(off)} of {len(on_map)} municipalities off by more than {DENSITY_TOLERANCE:.0%}"
-        + (f" ({_sample(f'{t['name']} {t['density']} × {t['land_km2']} vs {t['population']}' for t in off)})" if off else ""))
+        + (f" ({sample})" if off else ""))
 
 
 def quality_nation_sum(r: Report, docs: dict, with_data: list) -> None:
