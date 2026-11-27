@@ -335,7 +335,8 @@ class CitiesTest(unittest.TestCase):
         self.assertEqual(beograd["commute"], {"total": 106000, "same_unit": 70000, "other_unit": 26000, "other_oblast": 6000, "abroad": 4000})
         self.assertEqual(beograd["yields"], {"food": 100, "production": 18600, "gold": 1600000000, "science": 56000, "culture": 3500})
         self.assertIsNone(beograd["religion"])  # no part has it
-        self.assertIsNone(beograd["age65"])  # RZS has no row of its own: a share is never averaged
+        # RZS has no row of its own for the grad, and here none for its parts on the map either
+        self.assertIsNone(beograd["age65"])
         self.assertIsNone(beograd["wage_net"])
         self.assertEqual(beograd["settlement_population"], 190000)  # the largest urban settlement over the parts
         self.assertEqual(beograd["growth"], -0.0113)
@@ -348,6 +349,21 @@ class CitiesTest(unittest.TestCase):
         beograd = self.city(cities_json, srb.GRAD_BEOGRAD)
         self.assertEqual(beograd["employed"], 106500)
         self.assertIsNone(beograd["commute"])
+
+    def test_an_aggregate_without_a_row_of_its_own_takes_the_weighted_mean_of_its_parts(self):
+        """Grad Beograd has no wage or 65+ row of its own: its figure is the weighted mean over its opštine, as an
+        okrug's is (a wage by the registered employment, a share by the latest population estimate)."""
+        self.rzs["pop"][STARI_GRAD] = [51000, 50000, 49000, 48500, 48000]
+        self.rzs["pop_65"]["by_unit"].update({STARI_GRAD: 0.3, NOVI_BEOGRAD: 0.2})
+        self.rzs["wages"]["net"].update({STARI_GRAD: 150000.0, NOVI_BEOGRAD: 100000.0})
+        beograd = self.city(self.build()[0], srb.GRAD_BEOGRAD)
+        # 65+: (0.3 × 48,000 + 0.2 × 210,000) ÷ 258,000; the wage: (150,000 × 5,000 + 100,000 × 20,000) ÷ 25,000.
+        # The other fifteen opštine are employed but print no wage or share of their own: they stay out of both.
+        self.assertEqual((beograd["age65"], beograd["wage_net"]), (0.2186, 110000.0))
+        self.rzs["wages"]["net"].pop(NOVI_BEOGRAD)
+        self.assertEqual(self.city(self.build()[0], srb.GRAD_BEOGRAD)["wage_net"], 150000.0)
+        # a plain city keeps its own row, whatever its parts would average
+        self.assertEqual(self.city(self.build()[0], ALEKSANDROVAC)["wage_net"], 104512.0)
 
     def test_the_census_population_only_checks_the_sum_of_the_parts(self):
         """Where the census has a row of its own for a city, its inhabitants should equal the parts' rows added up."""

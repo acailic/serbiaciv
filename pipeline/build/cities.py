@@ -79,6 +79,17 @@ def unit_row(table: dict, unit_id: str):
     return territory.row_for(table, unit_id)
 
 
+def own_or_weighted(table: dict, unit_id: str, parts: list, weight_of, digits: int) -> float | None:
+    """A city's net wage or 65+ share: the row the office publishes for the grad itself (Grad Niš, Grad Novi Sad) and,
+    where it publishes none for the grad, the weighted mean over the units the grad is made of, as an okrug's figure is
+    made in states.figures (Grad Beograd is printed as its seventeen opštine, not as the grad). None without either."""
+    own = unit_row(table, unit_id)
+    if own is not None or not parts:
+        return own
+    mean = weighted_mean([unit_row(table, p) for p in parts], [weight_of(p) for p in parts])
+    return round(mean, digits) if mean is not None else None
+
+
 def census_counts(rows: list[dict]) -> dict:
     """What the census rows of a city's parts, or of an okrug's units, add up to: employed, unemployed, jobs, the
     four tables of CENSUS_TABLES and the unemployment rate (unemployed ÷ labour force). With no row at all, every
@@ -225,6 +236,8 @@ def build() -> None:
         gdp_value = round(nuts * 1e6 * city / okrug) if nuts is not None and city and okrug else None
         name = re.sub(r"^Grad ", "", territory.name(unit_id))
         change, years = growth(series, rzs["pop_years"])
+        employed_of = lambda u: (unit_row(rzs["employment"]["by_unit"], u) or {}).get("total")  # a wage's weight
+        latest_of = lambda u: (unit_row(rzs["pop"], u) or [None])[-1]  # a share's weight
         candidates.append({
             "id": unit_id,
             "name": name,
@@ -241,8 +254,8 @@ def build() -> None:
             "jobs": counts["jobs"],
             "median_income": None, "median_rent": None, "home_value": None, "rent_burden": None,  # not published below the region
             "unemployment": counts["unemployment"],
-            "wage_net": unit_row(rzs["wages"]["net"], unit_id),
-            "age65": unit_row(rzs["pop_65"]["by_unit"], unit_id),
+            "wage_net": own_or_weighted(rzs["wages"]["net"], unit_id, parts, employed_of, 2),
+            "age65": own_or_weighted(rzs["pop_65"]["by_unit"], unit_id, parts, latest_of, 4),
             "gdp": gdp_value,
             "gdp_year": gdp["data"]["year"],
             "gdp_by_industry": None,
