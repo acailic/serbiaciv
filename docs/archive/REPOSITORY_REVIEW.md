@@ -17,4 +17,4 @@ Snapshot: 2026-11-26. SerbiaCiv is a foundation for a Serbia port of usaciv, not
 4. **Add statistics in small, verifiable layers.** Start with one well-documented indicator, provenance and missing-data treatment; then add lenses, yields, city and district panels. Verify Kosovo and Metohija missing-statistics behaviour explicitly.
 5. **Harden and release.** Automate Python, JS, data-contract and browser checks; test mobile and keyboard access; make README commands reflect reality; build the trailer only after its data is stable.
 
-The detailed product decisions and acceptance criteria live in `docs/superpowers/specs/2026-11-26-serbiaciv-design.md`. The untracked M1 implementation plan may need reconciliation with the repository before work starts.
+The detailed product decisions and acceptance criteria live in `docs/DESIGN.md`. The untracked M1 implementation plan may need reconciliation with the repository before work starts.

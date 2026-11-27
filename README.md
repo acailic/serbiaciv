@@ -1,10 +1,20 @@
 # serbiaciv
 
+[![Live atlas](https://img.shields.io/badge/live-acailic.github.io%2Fserbiaciv-2ea44f)](https://acailic.github.io/serbiaciv/)
+[![Deploy to GitHub Pages](https://github.com/acailic/serbiaciv/actions/workflows/full-app-pages.yml/badge.svg)](https://github.com/acailic/serbiaciv/actions/workflows/full-app-pages.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Python 3.11+](https://img.shields.io/badge/python-3.11%2B-blue.svg)](pyproject.toml)
+[![Data: RZS · Eurostat · Copernicus · OSM](https://img.shields.io/badge/data-RZS%20%C2%B7%20Eurostat%20%C2%B7%20Copernicus%20%C2%B7%20OSM-orange)](#data-and-limitations)
+
 **serbiaciv** is an interactive map of Serbia drawn like a 4X strategy game. It combines public geographic and statistical data with a hexagonal map, city views, resources and thematic lenses. It is a data visualisation, not a simulation or a playable game. The interface supports Serbian Latin and Cyrillic.
 
-[Open the atlas](https://acailic.github.io/serbiaciv/) · [Design](docs/superpowers/specs/2026-11-26-serbiaciv-design.md) · [Data contracts](docs/DATA_CONTRACTS.md) · [Glossary](docs/GLOSSARY.md)
+[Open the atlas](https://acailic.github.io/serbiaciv/) · [Design](docs/DESIGN.md) · [Data contracts](docs/DATA_CONTRACTS.md) · [Glossary](docs/GLOSSARY.md)
 
 ![Preview of the serbiaciv map, showing Serbian cities and terrain](web/og-image.png)
+
+> **Na srpskom:** serbiaciv je interaktivna mapa Srbije u stilu strateške igre (4X, Civilization): heksagonalna mapa sa terenom, rekama i okruzima, gradovi sa stanovništvom i privrednim pokazateljima, i tematska sočiva za gustinu naseljenosti, zarade, obrazovanje i zaposlenost. Sve je izgrađeno iz otvorenih podataka (RZS, popis 2022, Eurostat, Copernicus, ESA WorldCover, OpenStreetMap). Interfejs je na latinici i ćirilici. [Otvori mapu →](https://acailic.github.io/serbiaciv/)
+>
+> **Ћирилицом:** интерактивна мапа Србије у стилу стратешке игре, направљена од отворених података.
 
 ### Watch the trailer
 
@@ -38,7 +48,7 @@ Open <http://127.0.0.1:8765>. The site uses ES modules and must be served over H
 
 The map uses sources including the Statistical Office of the Republic of Serbia (RZS), the 2022 census, Eurostat, Copernicus DEM, ESA WorldCover, OpenStreetMap, geoBoundaries and Natural Earth. The in-app Almanac and `web/data/sources.json` list the sources and their vintages. Some hand-curated sites cite publisher pages rather than a downloaded dataset. Each dataset retains its own licence and attribution requirements; the code's MIT licence does not change those terms.
 
-Kosovo and Metohija is included in the map frame. RZS does not provide the corresponding statistical series for that territory, so statistical measures there are missing rather than set to zero; physical layers and named towns are shown where their sources provide them. The map combines a five-district RZS classification with municipal boundaries from geoBoundaries; its approximations are documented in the [design](docs/superpowers/specs/2026-11-26-serbiaciv-design.md).
+Kosovo and Metohija is included in the map frame. RZS does not provide the corresponding statistical series for that territory, so statistical measures there are missing rather than set to zero; physical layers and named towns are shown where their sources provide them. The map combines a five-district RZS classification with municipal boundaries from geoBoundaries; its approximations are documented in the [design](docs/DESIGN.md).
 
 The grid is schematic. Small municipalities can be smaller than one hex and consequently absent from municipality-based map lenses. The data checker reports these cases and known gaps, including the incomplete mapped division of Novi Sad. A city's per-hex population is an estimate based on municipality density and hex area, not a count of residents at that precise location. Yields are labels for underlying economic and employment indicators, not game statistics; consult the Almanac for definitions and units.
 
@@ -78,4 +88,4 @@ For a different deployment address, update the canonical and social-image URLs i
 - `web/` contains the static site, JavaScript, styles and generated JSON.
 - `tests/` contains pipeline tests and browser smoke checks; `scripts/` contains staging and maintenance utilities.
 
-Contributions are welcome. When changing a dataset, preserve its attribution, document its shape and limitations, and run the relevant tests and `pipeline check`. Code is licensed under [MIT](LICENSE); source data is subject to its respective publisher's terms.
+Contributions are welcome; see [CONTRIBUTING.md](CONTRIBUTING.md). Found a wrong number or a misplaced town? [Report a data error](https://github.com/acailic/serbiaciv/issues/new?template=data-error.yml). When changing a dataset, preserve its attribution, document its shape and limitations, and run the relevant tests and `pipeline check`. Code is licensed under [MIT](LICENSE); source data is subject to its respective publisher's terms.
