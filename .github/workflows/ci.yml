@@ -1,0 +1,71 @@
+name: Test
+
+# The gate CONTRIBUTING.md asks for, run on every push to main and every pull request. The deploy workflow
+# (full-app-pages.yml) is started by hand and does not run these.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: test-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # pyproject.toml promises >=3.11: hold the floor as well as the version the deploy workflow uses.
+        python: ['3.11', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install pipeline dependencies
+        run: |
+          python -m pip install uv
+          uv sync --frozen
+      - name: Pipeline unit tests
+        run: uv run python -m unittest discover -s tests
+
+  app:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: JavaScript unit tests
+        run: node --test
+        working-directory: web
+      - name: Install pipeline dependencies
+        run: |
+          python -m pip install uv
+          uv sync --frozen
+      - name: Verify and stage Serbian assets
+        run: |
+          uv run python scripts/stage_serbia_pages.py
+          uv run python -m pipeline check
+      - name: Install browser test dependencies
+        run: |
+          npm install --no-save --no-package-lock playwright
+          npx playwright install --with-deps chromium
+      - name: Smoke test the full app
+        # The same steps as the deploy workflow: the app served under its Pages subpath.
+        run: |
+          mkdir -p /tmp/site && cp -r dist/pages-app /tmp/site/serbiaciv
+          python -m http.server 8765 --directory /tmp/site > /tmp/serbiaciv-server.log 2>&1 &
+          for i in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:8765/serbiaciv/ > /dev/null; then break; fi
+            sleep 1
+          done
+          node tests/browser/smoke.mjs http://127.0.0.1:8765/serbiaciv/
