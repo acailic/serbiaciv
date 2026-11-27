@@ -21,7 +21,7 @@ from __future__ import annotations
 
 import json
 
-from ..core import srb, store
+from ..core import srb, store, territory
 from ..sources.census import Census
 from .citizens import walk_cells
 
@@ -324,6 +324,26 @@ def check(web_dir) -> list:
             out.append(("FAIL", f"districts.json: city ids not in cities.json: {stray[:8]}"))
         if absent:
             out.append(("FAIL", f"districts.json: cities missing from the file: {absent[:8]}"))
+    # The opštine table feeds the district overlay: a unit of Kosovo and Metohija never carries one, a key is a unit
+    # of the territory tree, and every district qualifies under the rule the cities are held to.
+    units = set(territory.units())
+    bad_counties = []
+    for gid, c in doc.get("counties", {}).items():
+        if gid not in units or territory.in_kosovo(gid):
+            bad_counties.append(gid)
+            continue
+        try:
+            well_formed = (isinstance(c, dict) and isinstance(c.get("emp"), int) and c["emp"] > 0
+                           and isinstance(c.get("districts"), list) and len(c["districts"]) <= MAX_PER_CITY
+                           and all(len(d) == 3 and d[0] in ids and isinstance(d[1], (int, float)) and d[1] >= MIN_LQ
+                                   and isinstance(d[2], int) and d[2] > 0 for d in c["districts"]))
+        except (TypeError, ValueError, KeyError):
+            well_formed = False
+        if not well_formed:
+            bad_counties.append(gid)
+    if bad_counties:
+        out.append(("FAIL", f"districts.json: opštine outside the tree, in Kosovo and Metohija, or malformed: "
+                            f"{sorted(bad_counties)[:8]}"))
     if out:
         return out
     none = sorted(cid for cid, c in doc["cities"].items() if c is None)

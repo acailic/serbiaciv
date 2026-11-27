@@ -163,10 +163,10 @@ class FileTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.web = Path(self.tmp.name)
-        cities = [{"id": "A", "counties": ["10001"], "capital": True}, {"id": "K", "counties": ["25001"]}]
+        cities = [{"id": "A", "counties": ["70017"], "capital": True}, {"id": "K", "counties": ["90018"]}]
         (self.web / "cities.json").write_text(json.dumps(cities), encoding="utf-8")
-        recs = {"A": D.city_record(city(5000, C=2000, B=0, O=1500), ["10001"], NATIONAL, capital=True), "K": None}
-        counties = {"10001": {"emp": 5000, "districts": [["industrial_zone", 2.39, 2000]]}}
+        recs = {"A": D.city_record(city(5000, C=2000, B=0, O=1500), ["70017"], NATIONAL, capital=True), "K": None}
+        counties = {"70017": {"emp": 5000, "districts": [["industrial_zone", 2.39, 2000]]}}
         self.doc = D.make_doc(NATIONAL, recs, counties)
 
     def tearDown(self):
@@ -188,7 +188,7 @@ class FileTests(unittest.TestCase):
         self.assertFalse(doc["rule"]["harbor_needs_water"])
         self.assertEqual(doc["cities"]["A"]["badge"]["label"], "Prestonica")  # the capital with an administration district
         self.assertIsNone(doc["cities"]["K"])
-        self.assertEqual(doc["counties"]["10001"]["districts"], [["industrial_zone", 2.39, 2000]])
+        self.assertEqual(doc["counties"]["70017"]["districts"], [["industrial_zone", 2.39, 2000]])
         ids = [c["id"] for c in doc["catalog"]]
         self.assertEqual(ids[:9], ["campus", "commercial_hub", "industrial_zone", "harbor", "theater_square", "entertainment_complex",
                                    "aerodrome", "government_plaza", "encampment"])
@@ -226,6 +226,16 @@ class FileTests(unittest.TestCase):
         self.assertTrue(any(l == "FAIL" and "ZZ" in m for l, m in D.check(self.web)))
         (self.web / "districts.json").write_text("{", encoding="utf-8")
         self.assertEqual(D.check(self.web)[0][0], "FAIL")
+        # The opštine table: Kosovo and Metohija never carries statistics, a key is a unit of the tree, a district qualifies.
+        for mutate, named in ((lambda d: d["counties"].__setitem__("90018", {"emp": 5, "districts": [["industrial_zone", 9.0, 5]]}), "90018"),
+                              (lambda d: d["counties"].__setitem__("10001", {"emp": 5, "districts": []}), "10001"),
+                              (lambda d: d["counties"]["70017"].__setitem__("districts", [["industrial_zone", 1.1, 100]]), "70017"),
+                              (lambda d: d["counties"]["70017"].__setitem__("districts", [["no_such_district", 2.0, 100]]), "70017"),
+                              (lambda d: d["counties"]["70017"].__setitem__("emp", 0), "70017")):
+            doc = copy.deepcopy(self.doc)
+            mutate(doc)
+            self.write(doc)
+            self.assertTrue(any(l == "FAIL" and named in m for l, m in D.check(self.web)), named)
         self.assertEqual(D.check(Path(self.tmp.name) / "nowhere")[0][0], "NOTE")  # not built yet: a note, not a failure
 
 
