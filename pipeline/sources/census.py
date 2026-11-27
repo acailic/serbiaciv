@@ -137,6 +137,10 @@ class Census(Source):
                 if ident:
                     counts["exact"] += 1
             if ident:
+                if territory.in_kosovo(ident):
+                    # The "Region Kosovo i Metohija" line above normally keeps its rows unmatched; a layout that lists
+                    # them under their own okrug must not fill them: every statistic there stays null.
+                    raise ValueError(f"{name} under {oblast}: a Kosovo and Metohija unit matched a census row ({ident})")
                 if ident in units:
                     raise ValueError(f"{name} under {alias_parent}: duplicate census row")
                 units[ident] = area

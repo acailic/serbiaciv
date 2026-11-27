@@ -272,6 +272,42 @@ class ProcessTest(RawFolder):
         self.write("employment", [row("70017", rzs_db.EMPLOYMENT, "4612", nKD08="Ukupno"), row("70017", rzs_db.EMPLOYMENT, "65", nKD08=nace("A"))]
                    + [r for p in BELGRADE for r in (row(p, rzs_db.EMPLOYMENT, "10", nKD08="Ukupno"), row(p, rzs_db.EMPLOYMENT, "1", nKD08=nace("A")))])
         self.write("life_expectancy", [row("70017", rzs_db.LIFE_EXPECTANCY, "74.53", nPol="Muško"), row("70017", rzs_db.LIFE_EXPECTANCY, "79.77", nPol="Žensko")])
+        # Every other unit the office publishes, as a real export has them: process() refuses a partial export.
+        special = {"70017", "79014", "80284", "80519"}
+        every = [u for u in UNITS if u not in special and not territory.in_kosovo(u)]
+        rest = [u for u in every if u not in BELGRADE]  # the tables above already carry the Belgrade opštine
+        extra = {
+            "pop_estimate": [row(u, rzs_db.POPULATION, "5000") for u in rest],
+            "pop_65": [r for u in every for r in (row(u, rzs_db.POPULATION, "5000", nStarGrupa="Ukupno"),
+                                                 *(row(u, rzs_db.POPULATION, "100", nStarGrupa=g) for g in rzs_db.AGED_65))],
+            "births_deaths": [r for u in rest for r in (row(u, rzs_db.BIRTHS, "50"), row(u, rzs_db.DEATHS, "50"),
+                                                        row(u, rzs_db.NATURAL_INCREASE, "0.0"))],
+            "wages": [r for u in rest for r in (row(u, rzs_db.NET, "80000"), row(u, rzs_db.GROSS, "110000"))],
+            "employment": [r for u in rest for r in (row(u, rzs_db.EMPLOYMENT, "100", nKD08="Ukupno"),
+                                                     row(u, rzs_db.EMPLOYMENT, "1", nKD08=nace("A")))],
+            "life_expectancy": [r for u in every for r in (row(u, rzs_db.LIFE_EXPECTANCY, "75.0", nPol="Muško"),
+                                                          row(u, rzs_db.LIFE_EXPECTANCY, "79.0", nPol="Žensko"))],
+        }
+        for name, records in extra.items():
+            path = self.raw / "rzs_db" / f"{name}.json"
+            path.write_text(json.dumps(json.loads(path.read_text(encoding="utf-8")) + records), encoding="utf-8")
+
+    def test_a_partial_export_is_refused_rather_than_cached_as_final(self):
+        path = self.raw / "rzs_db" / "wages.json"
+        path.write_text(json.dumps([r for r in json.loads(path.read_text(encoding="utf-8")) if r["IDTer"].strip() != "70017"]),
+                        encoding="utf-8")
+        with self.assertRaisesRegex(RuntimeError, "incomplete.*'wages': \\['70017'\\]"):
+            rzs_db.RzsDatabase().process()
+
+    def test_the_units_the_office_does_not_publish_are_the_only_gaps(self):
+        rzs_db.RzsDatabase().process()  # the complete exports above: nothing unexpected
+        table = {unit: 1.0 for unit in UNITS}
+        table = table | dict.fromkeys(("79014", "80519", "80284"))  # no row of their own: Grad Beograd, Petrovaradin, Novi Sad
+        table["89010"] = 2.0  # Grad Novi Sad's row stands for the grad, once
+        self.assertEqual(rzs_db.coverage_gaps({"wages": table}), {"wages": ["79014", "80519"]})
+        self.assertEqual(rzs_db.unexpected_gaps({"wages": table}), {})
+        del table["70017"]
+        self.assertEqual(rzs_db.unexpected_gaps({"wages": table}), {"wages": ["70017"]})
 
     def test_every_table_over_every_unit(self):
         data = rzs_db.RzsDatabase().process()

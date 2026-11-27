@@ -331,6 +331,20 @@ class CensusTest(unittest.TestCase):
         self.assertEqual([u[0] for u in population.unmatched], ["Добро Село"])
         self.assertEqual(sorted(religion.units), ["70025", "70203", "71323", "71331", "79014", "79022", "89010"])
 
+    def test_a_kosovo_unit_row_is_rejected_even_under_its_own_okrug(self):
+        """The "Region Kosovo i Metohija" line keeps its rows unmatched; a layout that lists them under their okrug
+        must fail loudly rather than give Kosovo and Metohija a statistic."""
+        nodes = territory.nodes()
+        okrug = next(k for k, v in nodes.items() if k.startswith("RS23") and v["level"] == 3)
+        unit = next(k for k, v in nodes.items() if territory.is_unit(k) and territory.in_kosovo(k) and v["parent"] == okrug)
+        groups = [{"name": nodes[okrug]["name"], "level": 3, "rows": {}},
+                  {"name": nodes[unit]["name"], "level": 4, "rows": {}}]
+        with mock.patch.object(census.census_xlsx, "read_rows", return_value=[]), \
+                mock.patch.object(census, "_group", return_value=groups):
+            with self.assertRaisesRegex(ValueError, "Kosovo and Metohija unit matched"):
+                Census()._walk("religion")
+        # (That a Serbian opština is matched is what the tests above count as "exact".)
+
 
 class FetchTest(unittest.TestCase):
     class Handler(http.server.BaseHTTPRequestHandler):

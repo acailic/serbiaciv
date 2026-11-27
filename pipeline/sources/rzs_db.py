@@ -223,6 +223,47 @@ def published_units(ds: rzs.Dataset) -> list[str]:
     return [unit for unit in territory.units() if not unit.startswith("9") and unit in in_tree]
 
 
+# --- completeness ------------------------------------------------------------------------------------------------
+
+# The units the office publishes no figure for, by table: the only absences a complete export shows. Any other unit
+# without a current figure (its own row, or the row of the unit whose figures stand for it) means a cut-off or
+# partial export. It is refused in process(): processed, it would be cached as final and the opština would read
+# "no data" on the map.
+UNPUBLISHED = {
+    "pop_estimate": {"80519"},  # Petrovaradin: Grad Novi Sad (89010) is estimated instead and stands for the grad once
+    "pop_65": {"79014", "80519"},  # Grad Beograd has no row of its own: a share is never summed
+    "births": {"80519"},
+    "deaths": {"80519"},
+    "natural_increase": {"79014", "80519"},  # a rate is never summed
+    "wages": {"79014", "80519"},  # a wage is never summed
+    "life_expectancy": {"79014", "80519"},
+    "employment": {"80519"},
+}
+
+
+def coverage_gaps(tables: dict[str, dict]) -> dict[str, list[str]]:
+    """{table: the units outside Kosovo and Metohija with no current figure} in `tables` ({table: {unit: value}}):
+    neither a row of their own nor one of the unit whose figures stand for them (territory.data_unit)."""
+    gaps = {}
+    for name, table in tables.items():
+        def current(unit, table=table):
+            if territory.has_current(table, unit):
+                return True
+            return territory.has_current(table, territory.data_unit(unit, lambda u: table.get(u) is not None))
+        gaps[name] = [unit for unit in territory.units() if not territory.in_kosovo(unit) and not current(unit)]
+    return gaps
+
+
+def unexpected_gaps(tables: dict[str, dict]) -> dict[str, list[str]]:
+    """coverage_gaps without the units the office does not publish (UNPUBLISHED): empty when the exports are complete."""
+    out = {}
+    for name, units in coverage_gaps(tables).items():
+        left = [unit for unit in units if unit not in UNPUBLISHED.get(name, ())]
+        if left:
+            out[name] = left
+    return out
+
+
 # --- the source --------------------------------------------------------------------------------------------------
 
 class RzsDatabase(Source):
@@ -270,7 +311,8 @@ class RzsDatabase(Source):
         pop_years, pop = population(tables["pop_estimate"])
         year = {name: year_of(records) for name, records in tables.items() if name != "pop_estimate"}
         vital = tables["births_deaths"]
-        return {
+        life = life_expectancy(tables["life_expectancy"])
+        payload = {
             "vintage": {
                 "pop_estimate": f"Procene stanovništva po opštinama, {pop_years[0]}–{pop_years[-1]}",
                 "births": f"Živorođeni, {year['births_deaths']}",
@@ -291,8 +333,7 @@ class RzsDatabase(Source):
                       "net": over_units(by_unit(tables["wages"], NET), summed=False),
                       "gross": over_units(by_unit(tables["wages"], GROSS), summed=False)},
             "employment": {"year": year["employment"], "by_unit": employment(tables["employment"])},
-            "life_expectancy": {"year": year["life_expectancy"],
-                                "by_unit": life_expectancy(tables["life_expectancy"])},
+            "life_expectancy": {"year": year["life_expectancy"], "by_unit": life},
             "status": {
                 "pop_estimate": flagged(tables["pop_estimate"], POPULATION, nVrTacka=str(pop_years[-1])),
                 "births": flagged(vital, BIRTHS),
@@ -305,3 +346,20 @@ class RzsDatabase(Source):
             "_files": list(dict.fromkeys([f"pages/{picked['dataset']}.html" for picked in SELECTIONS.values()]
                                          + [f"{name}.json" for name in SELECTIONS])),
         }
+        # A unit without a figure that the office does publish is a partial export, not a unit without data.
+        gaps = unexpected_gaps({
+            "pop_estimate": {unit: series[-1] if series else None for unit, series in pop.items()},
+            "pop_65": payload["pop_65"]["by_unit"],
+            "births": payload["births"]["by_unit"],
+            "deaths": payload["deaths"]["by_unit"],
+            "natural_increase": payload["natural_increase"]["by_unit"],
+            "wages": {unit: None if payload["wages"]["net"][unit] is None or payload["wages"]["gross"][unit] is None
+                      else payload["wages"]["net"][unit] for unit in territory.units()},
+            "life_expectancy": {unit: None if row["m"] is None or row["f"] is None else row["m"] for unit, row in life.items()},
+            "employment": {unit: row["total"] for unit, row in payload["employment"]["by_unit"].items()},
+        })
+        if gaps:
+            raise RuntimeError(f"{self.id}: the exports look incomplete — units outside Kosovo and Metohija without a "
+                               f"figure: {gaps}. Refetch (uv run python -m pipeline fetch --force rzs_db); a partial "
+                               f"export must not be processed.")
+        return payload
