@@ -1,6 +1,15 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { isCapital, prepareWorld } from "./world.js";
+import { isCapital, labelForms, prepareWorld } from "./world.js";
+import { toCyrillic } from "./i18n/transliterate.js";
+
+test("an okrug's short label drops the word okrug in both scripts", () => {
+  assert.deepEqual(labelForms("BORSKI OKRUG", (t) => t), ["BORSKI OKRUG", "BORSKI"]);
+  const [name, stem] = labelForms("BORSKI OKRUG", toCyrillic);
+  assert.equal(stem, toCyrillic("BORSKI")); // cut in Latin, then transliterated
+  assert.notEqual(stem, name);
+  assert.deepEqual(labelForms("GRAD BEOGRAD", (t) => t), ["GRAD BEOGRAD", "GRAD BEOGRAD"]); // nothing to cut
+});
 
 test("missing elevation stays unknown and does not create false shading", () => {
   const raw = { grid: { radius: 5, cols: 2, rows: 1 }, owner: [0, 0], water: [0, 0], elev: [null, 100],

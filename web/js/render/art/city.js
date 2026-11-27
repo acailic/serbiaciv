@@ -92,11 +92,12 @@ export const cityTileVisible = (city, Rpx) => !(Rpx < 9 && city.population < (Rp
 //   fringe   houses and trees on the unpaved rest of the hex
 //   civic    one block becomes a church / meeting house
 // Serbia's scale (a fiftieth of the US thresholds, rounded so that the 52 cities spread over four classes):
-// villages under 60 000, towns to 250 000 (Kragujevac … Požega), cities to a million (Novi Sad, Niš), Beograd the metropolis.
+// villages under 60 000, towns to 200 000 (Kragujevac … Požega), cities to a million (Novi Sad, Niš), Beograd the metropolis.
+// The city floor is 200 000, not 250 000: Niš, a city by this comment, had 248 079 and fell through to the towns.
 export const CITY_CLASSES = [
   { id: "village", min: 0, village: true },
   { id: "town", min: 6e4, extent: 0.66, lot: 0.2, core: 0.9, mid: 0.55, height: 0.2, park: 0.05, ragged: 0.4, grey: 0.08, fringe: true, civic: true },
-  { id: "city", min: 2.5e5, extent: 0.8, lot: 0.18, core: 0.66, mid: 0.33, height: 0.44, park: 0.06, ragged: 0.32, grey: 0.14, fringe: true, civic: true },
+  { id: "city", min: 2e5, extent: 0.8, lot: 0.18, core: 0.66, mid: 0.33, height: 0.44, park: 0.06, ragged: 0.32, grey: 0.14, fringe: true, civic: true },
   { id: "metropolis", min: 1e6, extent: 0.9, lot: 0.16, core: 0.5, mid: 0.18, height: 0.58, park: 0.06, ragged: 0.25, grey: 0.2, fringe: true },
   { id: "megalopolis", min: 2.5e6, extent: 0.96, lot: 0.145, core: 0.36, mid: 0.08, height: 0.68, park: 0.05, ragged: 0.12, grey: 0.26, fringe: false },
 ];

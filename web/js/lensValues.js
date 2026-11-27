@@ -9,6 +9,8 @@ export function resolveLensValues(lens, world, data) {
   if (!source || !Array.isArray(owner)) throw new Error('Invalid lens or world');
   let values;
   if (source.kind === 'municipality') {
+    // The file itself missing (a failed request) is not a mismatch: say so, or the console blames the ids.
+    if (data == null) throw new Error('Podaci sočiva nisu učitani (lens-values.json)');
     if (data?.version !== 2 || !Array.isArray(data.municipality_ids) || !Array.isArray(world.counties) ||
         data.municipality_ids.length !== world.counties.length ||
         data.municipality_ids.some((id, index) => id !== world.counties[index]?.geoid)) {

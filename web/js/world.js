@@ -213,6 +213,13 @@ export function applyLens(w, lens, band = null) {
 
 // --- state labels ---------------------------------------------------------------------------------------------
 
+/** The two forms a state label can take, in the visitor's script: the name, and an okrug named after its seat
+ *  without the word okrug. The suffix is cut in Latin, before transliteration: its Cyrillic spelling would not
+ *  match, and the short form was never reached on the Cyrillic map. */
+export function labelForms(upperName, script) {
+  return [script(upperName), script(upperName.replace(/ OKRUG$/, ""))];
+}
+
 // For each state: anchor at the hex farthest from its border (BFS), angle from the PCA of the hex centres of
 // that part of the state (clamped to ±35°), and a font size (km) that fits the state's extent.
 function computeStateLabels(w) {
@@ -290,10 +297,9 @@ function computeStateLabels(w) {
       return 3.46 * Math.sqrt(Math.max(vxx * uy * uy - 2 * vxy * ux * uy + vyy * ux * ux, 0)) + grid.W;
     };
     const depth = (dist[a] + 0.7) * 2 * grid.H; // how thick the state is at the anchor
-    const name = script(states[s].name.toUpperCase());
     // An okrug named after its seat ("BORSKI OKRUG") is labelled by that name alone when the full one cannot be set at a
     // readable size: okruzi are a few hexes wide, and the word okrug would halve the letters.
-    const stem = name.replace(/ OKRUG$/, "");
+    const [name, stem] = labelForms(states[s].name.toUpperCase(), script);
     // Try the PCA angle (slightly preferred), horizontal and halfway; keep the largest text that stays inside.
     const tries = [angle, 0, angle / 2].filter((t, k, arr) => arr.findIndex((u) => Math.abs(u - t) < 0.03) === k);
     const bestFit = (text) => {

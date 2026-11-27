@@ -36,10 +36,11 @@ export const tips = {
         const r = a.enplanements / a.enplanements_prev - 1;
         ch = ` (${sign(r)}${pct(Math.abs(r), 1)} u odnosu na ${a.year - 1})`;
       }
-      lines.push(`<b>${num(a.enplanements)}</b> putnika ukrcano ${esc(a.year)}${ch}`);
+      lines.push(`<b>${num(a.enplanements)}</b> putnika ukrcano i iskrcano ${esc(a.year)}${ch}`);
     }
     if (a.cargo_lbs != null) lines.push(`Težina teretnih aviona pri sletanju ${num(a.cargo_lbs)} lb`);
-    lines.push(muted("Podaci o ukrcanim putnicima i teretnom saobraćaju, za kalendarsku godinu."));
+    // The figure is the passengers carried in the year (Eurostat: on board, arrivals plus departures), not departures alone.
+    lines.push(muted("Podaci o putnicima na ukrcavanju i iskrcavanju, za kalendarsku godinu."));
     return lines.join("<br>");
   },
   fort(f, m) {

@@ -559,7 +559,7 @@ function badgeFor(badges, city) {
 
 /** Population floor for a hex radius in screen px: national view shows the big metros, close zoom everything. */
 function popFloor(Rpx) {
-  // Serbia's scale (a fiftieth of the US floors): the home view (hex radius ~5 px) names the 24 cities over 60 000,
+  // Serbia's scale (a fiftieth of the US floors): the home view (hex radius ~5 px) names the 23 cities over 60 000,
   // a slight zoom the 35 over 40 000, and every one of the 52 from Rpx 14 on.
   return Rpx < 5 ? 6e4 : Rpx < 8 ? 4e4 : Rpx < 14 ? 2.5e4 : Rpx < 24 ? 1e4 : Rpx < 40 ? 5e3 : 0;
 }

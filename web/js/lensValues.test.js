@@ -14,6 +14,7 @@ test('inconsistent ids or value lengths are rejected', () => {
   const lens = {value_source:{kind:'municipality', key:'x'}};
   assert.throws(() => resolveLensValues(lens, world, {...data, municipality_ids:[...data.municipality_ids].reverse()}), /IDs/);
   assert.throws(() => resolveLensValues(lens, world, {...data, values:{x:[0]}}), /values/);
+  assert.throws(() => resolveLensValues(lens, world, null), /nisu učitani/); // the file itself is missing
 });
 test('physical lenses cover Kosovo and categories map to legend indices', () => {
   assert.deepEqual(resolveLensValues({value_source:{kind:'world',field:'elev'}}, world), [100,0,200,null,null,300,null]);
