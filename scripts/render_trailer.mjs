@@ -3,7 +3,7 @@
 //   NODE_PATH=$(npm root -g) node scripts/render_trailer.mjs
 import { createRequire } from 'node:module';
 import { spawn, spawnSync } from 'node:child_process';
-import { mkdtemp, writeFile, rm, mkdir } from 'node:fs/promises';
+import { mkdtemp, writeFile, rm, mkdir, copyFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { createServer } from 'node:net';
@@ -32,6 +32,7 @@ const scenes = [
   { hash: '#advisor=economy&script=lat', mode: 'advisor', duration: 4, kicker: 'OTKRIJ ŠIRU SLIKU', title: 'EKONOMIJA I RESURSI', sub: 'Uporedi gradove, okruge i javne pokazatelje' },
   { hash: '#script=lat', duration: 5, kicker: 'OTVORENI PODACI · OTVORENI KOD', title: 'ISTRAŽI SVOJU SRBIJU', sub: 'acailic.github.io/serbiaciv' },
 ];
+const transition = 0.7;
 const runId = (n) => String(n).padStart(2, '0');
 
 try {
@@ -82,7 +83,11 @@ try {
   for (let i = 0; i < scenes.length; i++) {
     const scene = scenes[i], n = runId(i);
     for (const key of ['kicker', 'title', 'sub']) await writeFile(join(temp, `${n}-${key}.txt`), scene[key]);
-    const text = (key, fontfile, size, y, color) => `drawtext=fontfile=${fontfile}:textfile=${join(temp, `${n}-${key}.txt`)}:fontsize=${size}:fontcolor=${color}:x=94:y=${y}:shadowcolor=black@0.8:shadowx=2:shadowy=2`;
+    // Fade captions separately so outgoing and incoming text never stack during the dissolve.
+    const start = i === 0 ? 0 : transition;
+    const end = i === scenes.length - 1 ? scene.duration + 1 : scene.duration;
+    const alpha = `min(1,min(max(0,(t-${start})/0.25),max(0,(${end}-t)/0.25)))`;
+    const text = (key, fontfile, size, y, color) => `drawtext=fontfile=${fontfile}:textfile=${join(temp, `${n}-${key}.txt`)}:fontsize=${size}:fontcolor=${color}:x=94:y=${y}:alpha='${alpha}':shadowcolor=black@0.8:shadowx=2:shadowy=2`;
     const filter = [
       // Keep still captures pixel-stable: subpixel zoom on the detailed hex map produces visible shimmer.
       'scale=1920:1080:flags=lanczos', 'setsar=1',
@@ -92,22 +97,34 @@ try {
       text('kicker', bold, 24, 'h-229', '0xe7c47b'),
       text('title', bold, 54, 'h-181', '0xfff3d5'),
       text('sub', font, 30, 'h-105', '0xe0d5ba'),
-      `fade=t=in:st=0:d=0.5`, `fade=t=out:st=${scene.duration - 0.5}:d=0.5`,
     ].join(',');
     run('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', '-loop', '1', '-framerate', '30', '-i', join(temp, `scene-${n}.png`),
-      '-vf', filter, '-t', String(scene.duration), '-an', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '24',
+      '-vf', filter, '-t', String(scene.duration + (i < scenes.length - 1 ? transition : 0)),
+      '-an', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '24',
       '-pix_fmt', 'yuv420p', '-threads', '2', join(temp, `part-${n}.mp4`)]);
     console.log(`Rendered scene ${i + 1}/${scenes.length}`);
   }
-  await writeFile(join(temp, 'parts.txt'), scenes.map((_, i) => `file '${join(temp, `part-${runId(i)}.mp4`)}'`).join('\n') + '\n');
   await mkdir(join(root, 'docs'), { recursive: true });
-  const movie = join(root, 'docs', 'trailer.mp4');
-  run('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', '-f', 'concat', '-safe', '0', '-i', join(temp, 'parts.txt'),
-    '-i', join(temp, 'score.wav'), '-c:v', 'copy', '-c:a', 'aac', '-b:a', '192k', '-t', '30', '-movflags', '+faststart', movie]);
+  const movie = join(root, 'docs', 'trailer-calm.mp4');
+  let elapsed = 0;
+  const blends = [];
+  for (let i = 0; i < scenes.length - 1; i++) {
+    elapsed += scenes[i].duration;
+    blends.push(`[${i === 0 ? '0:v' : `v${i}`}][${i + 1}:v]xfade=transition=fade:duration=${transition}:offset=${elapsed}[v${i + 1}]`);
+  }
+  run('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', '-filter_complex_threads', '1',
+    ...scenes.flatMap((_, i) => ['-i', join(temp, `part-${runId(i)}.mp4`)]), '-i', join(temp, 'score.wav'),
+    '-filter_complex', blends.join(';'), '-map', `[v${scenes.length - 1}]`, '-map', `${scenes.length}:a`,
+    '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '24', '-pix_fmt', 'yuv420p', '-threads', '2',
+    '-c:a', 'aac', '-b:a', '192k', '-t', '30', '-movflags', '+faststart', movie]);
+  const preview = join(root, 'docs', 'trailer-calm.gif');
   run('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', '-i', movie, '-vf',
-    'fps=6,scale=480:-1:flags=lanczos,split[a][b];[a]palettegen=max_colors=128[p];[b][p]paletteuse=dither=bayer:bayer_scale=5',
-    '-loop', '0', '-threads', '1', join(root, 'docs', 'trailer-preview.gif')]);
-  console.log('Created docs/trailer.mp4 and docs/trailer-preview.gif');
+    'fps=12,scale=480:-1:flags=lanczos,split[a][b];[a]palettegen=max_colors=128[p];[b][p]paletteuse=dither=bayer:bayer_scale=5',
+    '-loop', '0', '-threads', '1', preview]);
+  // Keep the original links working as well as the new, cache-busting README links.
+  await copyFile(movie, join(root, 'docs', 'trailer.mp4'));
+  await copyFile(preview, join(root, 'docs', 'trailer-preview.gif'));
+  console.log('Created docs/trailer-calm.mp4 and docs/trailer-calm.gif');
 } finally {
   if (browser) await browser.close();
   server.kill();
