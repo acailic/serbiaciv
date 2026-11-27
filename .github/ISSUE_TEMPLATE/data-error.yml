@@ -1,0 +1,48 @@
+name: Data error
+description: A wrong number, a misplaced town, a bad boundary or a missing place on the map
+title: "[data] "
+labels: ["data"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for checking the numbers. English or Serbian (Latin or Cyrillic) are both fine.
+  - type: input
+    id: link
+    attributes:
+      label: Map link
+      description: Copy the address from the browser; it keeps the map view, the selected place and the script.
+      placeholder: https://acailic.github.io/serbiaciv/#...
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What kind of error?
+      options:
+        - Statistic (population, wages, employment, …)
+        - Place position or name
+        - Boundary (municipality or district)
+        - Terrain, river or land cover
+        - Missing or wrong landmark / resource
+        - Translation or script (Latin / Cyrillic)
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: shown
+    attributes:
+      label: What the map shows
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What it should show
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Source for the correct value
+      description: A link to RZS, Eurostat, OpenStreetMap or another publisher, if you have one.

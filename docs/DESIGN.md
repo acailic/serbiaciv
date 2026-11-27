@@ -1,6 +1,6 @@
 # serbiaciv: Serbia as a strategy game, built from real data
 
-**Status:** approved on 2026-11-26. Milestone 1 is in progress; the separate GitHub Pages site is an outline preview, not the finished map.
+**Status:** approved on 2026-11-26. The atlas built from this design is published at <https://acailic.github.io/serbiaciv/>. Historical planning notes are in [`docs/archive/`](archive/).
 **Base:** fork of [usaciv](https://karpathy.ai/usaciv) by Andrej Karpathy (MIT), imported as commit `1fdbdf3`.
 
 ## 1. Purpose
@@ -167,7 +167,7 @@ All were reached without a key or account on 2026-11-26. "Verified" means a file
 | Wikidata SPARQL | CC0 | UNESCO sites, national parks, universities, river lengths | site | Verified |
 | USGS earthquake catalog | Public domain | 994 events M ≥ 3.5 since 1970 in the region | event | Verified |
 
-**Data size and accuracy.** Select only required inputs and territory coverage, cache with provenance, and measure raw download, interim, output and browser-transfer sizes. Municipality statistics are stored once per municipality, not repeated for every hex; cell values are resolved via the municipality index. Physical lenses reuse per-hex world fields. Load optional data on demand, including when restoring deep links, with visible loading and failure states. Record a real Serbia baseline before setting budgets; do not weaken geography, missing-value semantics or provenance merely to meet a size target. See `docs/DATA_OPTIMIZATION_PLAN.md` and the M1 plan.
+**Data size and accuracy.** Select only required inputs and territory coverage, cache with provenance, and measure raw download, interim, output and browser-transfer sizes. Municipality statistics are stored once per municipality, not repeated for every hex; cell values are resolved via the municipality index. Physical lenses reuse per-hex world fields. Load optional data on demand, including when restoring deep links, with visible loading and failure states. Record a real Serbia baseline before setting budgets; do not weaken geography, missing-value semantics or provenance merely to meet a size target. See [`archive/DATA_OPTIMIZATION_PLAN.md`](archive/DATA_OPTIMIZATION_PLAN.md) and the [M1 plan](archive/2026-11-26-serbiaciv-m1-plan.md).
 
 **Fetch rule.** RZS's servers return `403` to curl's default user agent and `200` to a descriptive one. The fetcher always sends `serbiaciv/<version> (…)` and makes at most one request per second to RZS.
 

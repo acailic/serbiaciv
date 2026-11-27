@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: "If you use serbiaciv in research, teaching or journalism, please cite it as below. Cite the underlying datasets (RZS, Eurostat, Copernicus, ESA WorldCover, OpenStreetMap and others) as their publishers require."
+title: "serbiaciv: Serbia as a strategy-game map, built from real data"
+type: software
+authors:
+  - given-names: Aleksandar
+    family-names: Ilic
+version: 0.1.0
+license: MIT
+repository-code: "https://github.com/acailic/serbiaciv"
+url: "https://acailic.github.io/serbiaciv/"
+abstract: >-
+  An interactive hexagonal map of Serbia drawn like a 4X strategy game,
+  combining public geographic and statistical data (2022 census, RZS,
+  Eurostat, Copernicus DEM, ESA WorldCover, OpenStreetMap) with city views,
+  resources and thematic lenses. Interface in Serbian Latin and Cyrillic.
+keywords:
+  - Serbia
+  - open data
+  - data visualization
+  - interactive map
+  - census
+  - hexagonal grid
+references:
+  - type: software
+    title: usaciv
+    authors:
+      - given-names: Andrej
+        family-names: Karpathy
+    url: "https://karpathy.ai/usaciv"
+    license: MIT
