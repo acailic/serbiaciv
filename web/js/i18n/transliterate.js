@@ -23,18 +23,26 @@ const L2C = {
 };
 const L2C_RE = new RegExp(`[${Object.keys(L2C).join("")}]`, "g");
 
-// Names written in Latin in both scripts: foreign publishers, products and acronyms. Matched as whole words.
+// Names written in Latin in both scripts: foreign publishers, products, licenses and acronyms. Matched as whole words.
 export const PROTECTED = [
-  "AWS", "COG", "Copernicus", "ESA", "ESA WorldCover", "Eurostat", "GISCO", "GLO-30", "GeoJSON", "GitHub", "NACE",
-  "Natural Earth", "OpenStreetMap", "OurAirports", "Overpass", "UNESCO", "USGS", "Wikidata", "WRI", "geoBoundaries",
+  "AWS", "CC BY 4.0", "CC BY-SA 4.0", "COG", "Copernicus", "Copernicus DEM", "ESA", "ESA WorldCover", "Eurostat", "Geofabrik",
+  "GISCO", "GLO-30", "GeoJSON", "GitHub", "Minerals Yearbook", "MIT", "NACE", "Natural Earth", "ODbL", "Open Database License",
+  "OpenStreetMap", "OpenStreetMap contributors", "OurAirports", "Overpass", "UNESCO", "USGS", "U.S. Geological Survey",
+  "Wikidata", "WRI", "XKX", "geoBoundaries", "public domain", "serbiaciv",
 ];
 // Longest name first, so "ESA WorldCover" is never cut short by "ESA". The character before a name is part of the
 // match (and is transliterated with the text around it): that states "not preceded by a letter" without a lookbehind,
 // which browsers older than Safari 16.4 cannot parse.
-const PROTECT_RE = new RegExp(
-  `(^|[^A-Za-z])(${[...PROTECTED].sort((a, b) => b.length - a.length).map((n) => n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})(?![A-Za-z])`,
-  "g",
-);
+const PROTECT_NAMES = [...PROTECTED].sort((a, b) => b.length - a.length).map((n) => n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|");
+// Identifiers are Latin by nature and stay as written in both scripts. A file or domain name comes first, so
+// "serbiaciv-source.zip" is never cut into the project's name and a transliterated "source".
+const IDENTIFIER = [
+  "(?:[A-Za-z0-9_-]+/)*[A-Za-z0-9_-]{2,}(?:\\.[A-Za-z0-9_-]+)*\\.[A-Za-z]{2,}", // a file or domain name: airports.csv, naciscdn.org
+  "[A-Za-z]*[QWXYqwxy][A-Za-z]*", // a word with a letter Serbian has no Cyrillic for (q, w, x, y): a unit or a foreign name — MW, GWh, New York
+  "[A-Za-z][A-Za-z0-9]*(?:_[A-Za-z0-9]+)+", // a code with underscores: nama_10r_3gdp
+  "[A-Za-z]+[0-9][A-Za-z0-9]*|[0-9]+[A-Za-z][A-Za-z0-9]*", // letters and digits in one word: RS110, age65, 10m
+].join("|");
+const PROTECT_RE = new RegExp(`(^|[^A-Za-z0-9_])(${IDENTIFIER}|${PROTECT_NAMES})(?![A-Za-z0-9_])`, "g");
 
 /** The Latin letters of one unprotected stretch of text, as Cyrillic. */
 function latinChunk(part) {
@@ -42,7 +50,7 @@ function latinChunk(part) {
   return part.replace(L2C_RE, (ch) => L2C[ch]);
 }
 
-/** Serbian Latin → Cyrillic. Protected names stay Latin. Other scripts pass through untouched. */
+/** Serbian Latin → Cyrillic. Protected names and identifiers stay Latin. Other scripts pass through untouched. */
 export function toCyrillic(text) {
   if (!text) return text;
   const s = String(text);

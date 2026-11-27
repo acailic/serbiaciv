@@ -2,7 +2,7 @@
 
 Serbian is written in both scripts with one letter for each sound, so the conversion is mechanical. Everything in
 this project is authored in Serbian Latin; Cyrillic is generated from it. web/js/i18n/transliterate.js mirrors the
-two tables and PROTECTED token for token (tests/test_srtext.py checks that they agree).
+two tables, the identifier rule and PROTECTED token for token (tests/test_srtext.py checks that they agree).
 """
 
 from __future__ import annotations
@@ -34,18 +34,29 @@ _C2L = str.maketrans({
 _C2L_DIGRAPHS: dict[str, object] = {"љ": "lj", "њ": "nj", "џ": "dž", "Љ": ("Lj", "LJ"), "Њ": ("Nj", "NJ"), "Џ": ("Dž", "DŽ")}
 _WORD = re.compile(r"[^\W\d_]+", re.UNICODE)  # a run of letters, any script
 
-# Names written in Latin in both scripts: foreign publishers, products and acronyms. Matched as whole words.
+# Names written in Latin in both scripts: foreign publishers, products, licenses and acronyms. Matched as whole words.
 PROTECTED = (
-    "AWS", "COG", "Copernicus", "ESA", "ESA WorldCover", "Eurostat", "GISCO", "GLO-30", "GeoJSON", "GitHub", "NACE",
-    "Natural Earth", "OpenStreetMap", "OurAirports", "Overpass", "UNESCO", "USGS", "Wikidata", "WRI", "geoBoundaries",
+    "AWS", "CC BY 4.0", "CC BY-SA 4.0", "COG", "Copernicus", "Copernicus DEM", "ESA", "ESA WorldCover", "Eurostat", "Geofabrik",
+    "GISCO", "GLO-30", "GeoJSON", "GitHub", "Minerals Yearbook", "MIT", "NACE", "Natural Earth", "ODbL", "Open Database License",
+    "OpenStreetMap", "OpenStreetMap contributors", "OurAirports", "Overpass", "UNESCO", "USGS", "U.S. Geological Survey",
+    "Wikidata", "WRI", "XKX", "geoBoundaries", "public domain", "serbiaciv",
+)
+# Identifiers are Latin by nature and stay as written in both scripts. A file or domain name comes first, so
+# "serbiaciv-source.zip" is never cut into the project's name and a transliterated "source".
+_IDENTIFIER = (
+    r"(?:[A-Za-z0-9_-]+/)*[A-Za-z0-9_-]{2,}(?:\.[A-Za-z0-9_-]+)*\.[A-Za-z]{2,}"  # a file or domain name: airports.csv, naciscdn.org
+    r"|[A-Za-z]*[QWXYqwxy][A-Za-z]*"  # a word with a letter Serbian has no Cyrillic for (q, w, x, y): a unit or a foreign name — MW, GWh
+    r"|[A-Za-z][A-Za-z0-9]*(?:_[A-Za-z0-9]+)+"  # a code with underscores: nama_10r_3gdp
+    r"|[A-Za-z]+[0-9][A-Za-z0-9]*|[0-9]+[A-Za-z][A-Za-z0-9]*"  # letters and digits in one word: RS110, age65, 10m
 )
 _PROTECT_RE = re.compile(
-    r"(?<![A-Za-z])(" + "|".join(re.escape(t) for t in sorted(PROTECTED, key=len, reverse=True)) + r")(?![A-Za-z])"
+    r"(?<![A-Za-z0-9_])(" + _IDENTIFIER + "|"
+    + "|".join(re.escape(t) for t in sorted(PROTECTED, key=len, reverse=True)) + r")(?![A-Za-z0-9_])"
 )
 
 
 def to_cyrillic(text: str) -> str:
-    """Serbian Latin → Cyrillic. Protected names stay Latin. Other scripts pass through untouched."""
+    """Serbian Latin → Cyrillic. Protected names and identifiers stay Latin. Other scripts pass through untouched."""
     if not text:
         return text
     out = []
