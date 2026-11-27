@@ -17,7 +17,7 @@ from pipeline import check
 from pipeline.core import srb
 
 KIM = list(srb.KIM_OBLASTI)
-OKRUG_IDS = [f"RS{n:03d}" for n in range(1, 26)] + KIM  # 25 with statistics, then the five of Kosovo and Metohija
+OKRUG_IDS = [f"RS{n:03d}" for n in range(1, 25)] + ["RS110"] + KIM  # 25 with statistics (RS110 the Beogradski), then Kosovo's
 MUNICIPALITIES = [f"{i:05d}" for i in range(1, 186)] + ["80284", "80519"] + [f"900{n:02d}" for n in range(1, 11)]
 KOSOVO_AT = MUNICIPALITIES.index("90001")  # the index of the first municipality in Kosovo and Metohija
 in_kosovo = lambda geoid: geoid.startswith("9")
@@ -113,7 +113,7 @@ def dataset():
     }
     # The capital has more people; Mali grad the same GDP over ten people, so the higher GDP per person.
     cities = [
-        {"id": "79014", "name": "Beograd", "full": "Beograd (Beogradski okrug)", "states": ["RS001"], "metro": False, "capital": True,
+        {"id": "79014", "name": "Beograd", "full": "Beograd (Beogradski okrug)", "states": ["RS110"], "metro": False, "capital": True,
          "x": 1.0, "y": 1.0, "cell": 0, **copy.deepcopy(ECON), "counties": ["00001"], "footprint": [0, 1],
          "pop_series": {"2021": 990, "2025": 1000}, "ranks": {k: (2 if k == "gdp_per_capita" else 1) for k in CITY_RANK_KEYS},
          "peers": ["00002"]},
@@ -124,7 +124,10 @@ def dataset():
     ]
     states = [okrug(fips, i) for i, fips in enumerate(OKRUG_IDS)]
     nation = {"vintage": "Procene RZS 2025 · Popis 2022", "year": 2025, "gdp_vintage": "Eurostat, BDP po oblastima 2023",
-              "nation": {**copy.deepcopy(ECON), "growth": 0.02}, "yields": copy.deepcopy(srb.YIELDS), "industries": dict(srb.INDUSTRY_NAMES)}
+              # the sum of the 25 okruzi with statistics: okrug() scales the yields by (25 - i), which adds up to 325
+              "nation": {**copy.deepcopy(ECON), "growth": 0.02, "population": 25 * 1000, "employed": 25 * 500, "gdp": 25 * 3.5e9,
+                         "yields": {k: v * 325 for k, v in YIELDS.items()}},
+              "yields": copy.deepcopy(srb.YIELDS), "industries": dict(srb.INDUSTRY_NAMES)}
     lenses = {"vintage": "Procene RZS 2025 · Popis 2022",
               "groups": [{"id": "people", "name": "Stanovništvo"}, {"id": "work", "name": "Rad i zarade"},
                          {"id": "identity", "name": "Identitet"}, {"id": "life", "name": "Kvalitet života"},
@@ -454,6 +457,10 @@ class CheckTest(unittest.TestCase):
         web["cities.json"][0]["capital"] = False
         warns = " | ".join(self.levels(self.run_check(web, interim), "WARN"))
         self.assertIn("capital", warns)
+        web, interim = dataset()
+        web["cities.json"][0]["states"] = ["RS001"]  # the capital moved into another okrug
+        warns = " | ".join(self.levels(self.run_check(web, interim), "WARN"))
+        self.assertIn("must stand in the Beogradski okrug", warns)
 
     def test_lens_sources_must_be_in_the_catalog(self):
         web, interim = dataset()
@@ -508,6 +515,29 @@ class CheckTest(unittest.TestCase):
         rep = self.run_check(web, interim)
         self.assertEqual(self.levels(rep, "WARN"), [])
         self.assertTrue(any("unit lists" in m and "census" in m for m in self.levels(rep, "NOTE")))
+
+    def test_the_nation_must_be_the_sum_of_the_okruzi(self):
+        web, interim = dataset()
+        self.assertIn("are the sum of the okruzi", " | ".join(self.levels(self.run_check(web, interim), "PASS")))
+        web, interim = dataset()
+        web["nation.json"]["nation"]["population"] = int(web["nation.json"]["nation"]["population"] * 1.1)  # ten percent off
+        warns = " | ".join(self.levels(self.run_check(web, interim), "WARN"))
+        self.assertIn("the nation is not the sum of the okruzi", warns)
+        self.assertIn("more than 1% off", warns)
+        web, interim = dataset()
+        web["nation.json"]["nation"]["population"] += 3  # under a percent: rounding
+        rep = self.run_check(web, interim)
+        self.assertEqual(self.levels(rep, "WARN"), [])
+        self.assertIn("by rounding", " | ".join(self.levels(rep, "NOTE")))
+
+    def test_lens_values_outside_what_they_can_be_fail(self):
+        """A density under zero, a life expectancy of 500 years: a unit mix-up, not data."""
+        for lid, bad in (("density", -50), ("life_expectancy", 500), ("natural_increase", -80), ("elevation", 12000)):
+            web, interim = dataset()
+            row = next(l for l in web["lenses.json"]["lenses"] if l["id"] == lid)
+            row["values"][row["values"].index(next(v for v in row["values"] if v is not None))] = bad
+            with self.subTest(lid=lid):
+                self.fails_for(web, interim, f"lenses.json {lid}", "values outside")
 
 
 if __name__ == "__main__":

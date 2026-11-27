@@ -30,6 +30,7 @@ import math
 import re
 from collections import Counter, defaultdict
 from pathlib import Path
+from typing import TypeGuard
 
 from .core import srb, territory
 from .core.paths import INTERIM, WEB_DATA
@@ -37,6 +38,9 @@ from .core.paths import INTERIM, WEB_DATA
 LENS_NULL_WARN = 0.05  # share of Serbian cells with a null lens value
 GROWTH_MAX = 0.25  # the pipeline nulls |growth| above this (pipeline/build/yields.py, GROWTH_LIMIT)
 DENSITY_TOLERANCE = 0.02  # density × land_km2 against the population, per municipality (both are rounded)
+NATION_SUM_TOLERANCE = 0.01  # the nation against the sum of the okruzi with statistics: a wider gap is not rounding
+# What a value can physically be, per lens: anything outside is a unit mix-up (months for years, people per m² for km²).
+LENS_BOUNDS = {"density": (0, 50000), "life_expectancy": (30, 100), "natural_increase": (-50, 50), "elevation": (-500, 9000)}
 CITY_RANK_BASE = ["population", "gdp", "gdp_per_capita", "growth"]
 PEERS = 5
 
@@ -131,7 +135,7 @@ def is_int(v) -> bool:
     return isinstance(v, int) and not isinstance(v, bool)
 
 
-def is_num(v) -> bool:
+def is_num(v) -> TypeGuard[float]:
     return isinstance(v, (int, float)) and not isinstance(v, bool) and math.isfinite(v)
 
 
@@ -421,6 +425,9 @@ def check_cities(r: Report, cities, ctx: dict | None, yield_keys=srb.YIELD_KEYS)
     capital = [c for c in cities if isinstance(c, dict) and c.get("id") == srb.GRAD_BEOGRAD]
     if len(capitals) != 1 or not capital or capital[0].get("capital") is not True:
         r.warn(f"cities.json: the capital must be Grad Beograd ({srb.GRAD_BEOGRAD}) and the only capital; found {capitals}")
+    elif capital[0].get("states") != [territory.BEOGRAD_OBLAST]:
+        r.warn(f"cities.json: the capital must stand in the Beogradski okrug ({territory.BEOGRAD_OBLAST}); "
+               f"Grad Beograd's okruzi are {capital[0].get('states')}")
     n = ctx["n"] if ctx else None
     okrugs = {s.get("fips") for s in ctx["states"] if isinstance(s, dict)} if ctx else None
     for c in cities:
@@ -683,6 +690,12 @@ def check_lenses(r: Report, doc, ctx: dict | None, source_ids: set | None, docs:
                     r.fail(f"{what}: {len(on_kim)} values on hexes of Kosovo and Metohija (every statistic there is null; cells {_sample(on_kim)})")
         if lens["format"] == "pct" and any(is_num(v) and abs(v) > 1 + 1e-9 for v in vals):
             r.fail(f"{what}: format pct but some values are beyond ±1 (a pct lens holds fractions, not percentages)")
+        bounds = LENS_BOUNDS.get(lid)
+        if bounds:
+            outside = [v for v in vals if is_num(v) and not bounds[0] <= v <= bounds[1]]
+            if outside:
+                r.fail(f"{what}: values outside {bounds[0]}–{bounds[1]}{' ' + lens['unit'] if lens['unit'] else ''} "
+                       f"({_sample(outside, 3)}): a unit mix-up?")
         if lens["format"] == "category":
             nc = len(lens["categories"]) if isinstance(lens.get("categories"), list) else 0
             if any(is_num(v) and not (is_int(v) and 0 <= v < nc) for v in vals):
@@ -1003,20 +1016,30 @@ def quality_density(r: Report, ctx: dict, docs: dict, density: list | None) -> N
 
 
 def quality_nation_sum(r: Report, docs: dict, with_data: list) -> None:
-    """nation.json's figures against the sum of the okruzi with statistics."""
+    """nation.json's figures against the sum of the okruzi with statistics. Rounding is a NOTE; a wider gap is a WARN,
+    since then the nation or an okrug is wrong and the two are read side by side."""
     nat = docs.get("nation.json") if isinstance(docs.get("nation.json"), dict) else None
     nation = nat.get("nation") if nat and isinstance(nat.get("nation"), dict) else None
     if not nation or not with_data:
         return
     keys = ["population", "employed", "gdp"] + [k for k in srb.YIELD_KEYS if k != "gold"]
-    diffs = []
+    off, rounding = [], []
     for k in keys:
         mine = nation.get(k) if k in ("population", "employed", "gdp") else (nation.get("yields") or {}).get(k)
         theirs = sum((_rank_value(s, k) or 0) for s in with_data)
-        if not is_num(mine) or abs(mine - theirs) > max(1, 1e-6 * abs(theirs)):
-            diffs.append(f"{k} {mine!r} vs {theirs:,.0f}")
-    (r.ok if not diffs else r.note)("nation.json: population, employed, GDP and the yields are the sum of the okruzi" if not diffs
-                                    else f"nation.json: the nation is not the sum of the okruzi with statistics: {_sample(diffs, 6)}")
+        if not is_num(mine):
+            off.append(f"{k} {mine!r} vs {theirs:,.0f}")
+        elif abs(mine - theirs) > max(1, NATION_SUM_TOLERANCE * abs(theirs)):
+            off.append(f"{k} {mine!r} vs {theirs:,.0f}")
+        elif abs(mine - theirs) > max(1, 1e-6 * abs(theirs)):
+            rounding.append(f"{k} {mine!r} vs {theirs:,.0f}")
+    if off:
+        r.warn(f"nation.json: the nation is not the sum of the okruzi with statistics (more than {NATION_SUM_TOLERANCE:.0%} off): "
+               f"{_sample(off, 6)}")
+    elif rounding:
+        r.note(f"nation.json: the nation differs from the sum of the okruzi with statistics by rounding: {_sample(rounding, 6)}")
+    else:
+        r.ok("nation.json: population, employed, GDP and the yields are the sum of the okruzi")
 
 
 def quality_cities(r: Report, ctx: dict, cities: list) -> None:
