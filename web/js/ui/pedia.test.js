@@ -2,9 +2,25 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
-import { vintageText } from "./pedia.js";
+import { vintageText, lensRange } from "./pedia.js";
 
 const sources = JSON.parse(readFileSync(new URL("../../data/sources.json", import.meta.url), "utf8"));
+const lenses = JSON.parse(readFileSync(new URL("../../data/lenses.json", import.meta.url), "utf8"));
+
+test("a lens's range reads as its values do: shares in percent, other fractions with one decimal", () => {
+  const by = Object.fromEntries(lenses.lenses.map((l) => [l.id, l]));
+  assert.equal(lensRange(by.pop_change), "-24,4 % – 7,0 %");
+  assert.equal(lensRange(by.natural_increase), "-17,6 – 0,8 na 1.000 stanovnika");
+  assert.equal(lensRange(by.life_expectancy), "72,9 – 78,7 godine");
+  assert.equal(lensRange(by.density), "11 – 5.621 stanovnika / km²");
+  assert.equal(lensRange(by.wages), "77.192 – 174.381 RSD");
+  assert.equal(lensRange(by.relief), "0 – 3");
+  // no shipped share lens may read as a range of whole zeros, nor a fraction lens as whole numbers
+  for (const l of lenses.lenses) {
+    if (l.format === "pct") assert.match(lensRange(l), /^-?\d+,\d % – -?\d+,\d %$/, l.id);
+    if (l.format === "float") assert.match(lensRange(l), /^-?\d+,\d – -?\d+,\d /, l.id);
+  }
+});
 
 test("a per-dataset vintage is printed as its values, in the file's order, each once", () => {
   assert.equal(vintageText({ regions: "Eurostat GISCO, NUTS 2024", areas: "Eurostat GISCO, NUTS 2024", communes: "LAU 2024" }),

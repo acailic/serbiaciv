@@ -1,6 +1,6 @@
 // The Almanah: what every number means and exactly where it comes from (Serbian data; vocabulary: docs/GLOSSARY.md).
 import { resolveTables } from "../terrain.js";
-import { esc, int } from "../format.js";
+import { esc, int, pct } from "../format.js";
 import { parseHex, luminance } from "../color.js";
 import { icon, glyph } from "./icon.js";
 
@@ -15,6 +15,13 @@ const SCALE = { linear: "linearna skala", log: "logaritamska skala" };
 // values, once each and in the file's order, since the dataset keys are English identifiers and two datasets can share
 // a file; a plain string is passed through.
 export const vintageText = (v) => (v && typeof v === "object" ? [...new Set(Object.values(v))].join("; ") : v || "");
+// A lens's data range, as its legend and tooltips print its values: shares as percentages on both ends, other fractions
+// to one decimal, counts whole, and a unit printed once after the range. int() alone read "0–0 %" for shares under one.
+const dec1 = (v) => String(v.toFixed(1)).replace(".", ",");
+const rangeNumber = (l, v) => (l.format === "float" ? dec1(v) : int(v));
+export const lensRange = (l) =>
+  l.format === "pct" ? `${pct(l.domain[0])} – ${pct(l.domain[1])}`
+    : `${rangeNumber(l, l.domain[0])} – ${rangeNumber(l, l.domain[1])}${l.unit ? " " + esc(l.unit) : ""}`;
 
 export function initPedia(data) {
   const modal = document.getElementById("pedia");
@@ -109,7 +116,7 @@ export function initPedia(data) {
           <div class="lens-entry"><div class="le-ic">${glyph(l, 26)}</div><div>
           <h4>${esc(l.name)}</h4><p>${esc(l.description)}<br>
           <i class="le-ramp" style="background:linear-gradient(90deg, ${(l.ramp || []).map(esc).join(",")})"></i>
-          <span class="muted">${SCALE[l.scale] || esc(l.scale)}, ${int(l.domain[0])}–${int(l.domain[1])} ${esc(l.unit)}${
+          <span class="muted">${SCALE[l.scale] || esc(l.scale)}, ${lensRange(l)}${
             l.higher_is === "good" ? " · više je bolje" : l.higher_is === "bad" ? " · više je loše" : ""}${l.source ? " · " + esc(srcName(l.source)) : ""}</span></p></div></div>`).join("")}`;
       }).join("")}`,
     Resursi: () => {
