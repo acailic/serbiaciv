@@ -15,6 +15,12 @@ const dec = (s) => String(s).replace(".", ",");
 const intish = (v) =>
   Number.isInteger(v) || Math.abs(v) >= 10 ? compact(v) : Math.abs(v) < 1 ? dec(+v.toPrecision(1)) : dec(v.toFixed(1));
 
+// A legend line names the source and its edition. A source whose vintage is one entry per dataset (rzs_db, the
+// boundaries) is too long for that line, so the lens file's own summary of the editions stands in for it.
+export function lensVintage(vintage, fileVintage) {
+  return typeof vintage === "string" && vintage ? vintage : typeof fileVintage === "string" ? fileVintage : "";
+}
+
 export function formatLensValue(lens, v) {
   if (v == null || !Number.isFinite(v)) return "nema podataka";
   switch (lens.format) {
@@ -209,7 +215,7 @@ export function initLensDock(opts) {
   function sourceLine(lens) {
     const src = sources.find((s) => s.id === lens.source);
     const name = src ? src.publisher && src.title.length > 44 ? src.publisher : src.title : lens.source;
-    const vintage = src?.vintage || lensFile?.vintage || "";
+    const vintage = lensVintage(src?.vintage, lensFile?.vintage);
     return [name, vintage].filter(Boolean).map(esc).join(" · ");
   }
 
